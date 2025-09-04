@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>HxCore.Data</PackageId>
+    <Authors>TypeSW</Authors>
+    <Company>TypeSW</Company>
+    <Product>HxCore</Product>
+    <Description>.NET Standard 2.0 - Library</Description>
+    <Copyright>Copyright © 2018 TypeSW.com</Copyright>
+    <RootNamespace>HxCore.Data</RootNamespace>
+    <AssemblyName>HxCore.Data.v1.4.22</AssemblyName>
+    <PackageProjectUrl>https://github.com/typesw/HxCore.Data</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/userjhpark/HxCoreData/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/typesw/HxCore.Data</RepositoryUrl>
+    <AssemblyVersion>1.4.22.0</AssemblyVersion>
+    <FileVersion>1.4.22.0</FileVersion>
+    <Version>1.4.22</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <NoWarn>1701;1702;IDE0018</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\bin\Realse\</OutputPath>
+    <NoWarn>1701;1702;IDE0018</NoWarn>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="4.5.3.3" />
+    <PackageReference Include="iTextSharp.LGPLv2.Core" Version="1.6.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Exchange.WebServices.NETStandard" Version="1.1.3" />
+    <PackageReference Include="MySql.Data" Version="8.0.15" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Npgsql" Version="4.0.5" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.91" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.110" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HxCore\HxCore.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="&quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\signtool.exe&quot; sign /f &quot;D:\Workspace_2023v3\etc\인증서\CodeSign\chain\htenc.co.kr.pfx&quot; /p cimage1004@ /fd sha256 /v $(TargetPath)" />
+  </Target>
+
+</Project>

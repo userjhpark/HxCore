@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Localization>
+	<Version date="20190812222601">2.00.00</Version>
+	<Author>Alfonso Seoage, David Rebolo</Author>
+	<Copyright>Alfonso Seoage © 
+jassgali@hotmail.con
+
+David Rebolo Magariños © 
+davidrebolomagarinnos@gmail.com</Copyright>
+	<Product id="PDFXEditor"/>
+	<Language eName="Galician (Galician)" lName="Galego" code="gl-ES" R2L="false"/>
+	<Module name="U3DPlugin" namespace="u3d" version="8.0.330.0"/>
+	<Strings>
+		<text id="3DRenderingCrashed.str" h="3B1E0F07">Lamentablemente o  trazador de 3D fallou. Para reactivalo, abra de novo o documento.</text>
+		<text id="3DSceneFailed.str" h="27A53BDF">Fallou a  inicialización da escena 3D</text>
+		<text id="DlgCameraProperties.Title" h="C62520F7">Propiedades da cámara</text>
+		<text id="PRCUnsupported.str" h="B107E80C">Non hai soporte para os modelos  PRC</text>
+		<text id="appPrefsPage.AAType.2x" h="423B3C2B">2x</text>
+		<text id="appPrefsPage.AAType.3x" h="FA875B4E">3x</text>
+		<text id="appPrefsPage.AAType.4x" h="675063F7">4x</text>
+		<text id="appPrefsPage.AAType.None" h="F9398D7D">ningún</text>
+		<text id="appPrefsPage.PickMode.TreeOrder" h="F1D70337">Orde na árbore de obxectos</text>
+		<text id="appPrefsPage.PickMode.ZOrder" h="8F0DAF26">Orde  Z</text>
+		<text id="appPrefsPage.gr.3DToolOptions" h="FA532EE7">Opcións da ferramenta 3D</text>
+		<text id="appPrefsPage.gr.rOptions" h="A6CEA705">Opcións do trazado</text>
+		<text id="appPrefsPage.lb.PickMode" h="26EFD83B">Modo de selección:</text>
+		<text id="appPrefsPage.name" h="86A64F71">Multimedia 3D</text>
+		<text id="appPrefsPage.tip" h="878BC70D">Opcións para multimedia 3D</text>
+		<text id="appPrefsPage.title" h="878BC70D">Opcións para multimedia 3D</text>
+		<text id="btn.default" h="3BF809E4">Converter en  predeterminado</text>
+		<text id="btn.moveDown" h="4CE68730">Baixar</text>
+		<text id="btn.moveUp" h="4454FC42">Subir</text>
+		<text id="chck.Show3DAxesStr" h="3173CD8B">Mostrar os eixos 3D</text>
+		<text id="ck.bgColor" h="799B39A6">Cor do fondo</text>
+		<text id="ck.cameraProps" h="C62520F7">Propiedades da cámara</text>
+		<text id="ck.crossSection" h="B6196404">Información do corte</text>
+		<text id="ck.enable3D" h="90C6F9B5">Activar o contido 3D</text>
+		<text id="ck.lighting" h="3C76D70F">Iluminación</text>
+		<text id="ck.nodesVis" h="39891BF4"> Visbilidad dos  nodos</text>
+		<text id="ck.renderMode" h="CDA80CD8">Modo de trazado</text>
+		<text id="cmd.3DPrefs" h="BB6488C0">Preferencias para &amp;3D...</text>
+		<text id="cmd.3dContent.trustAlways" h="C6E70253">Confiar sempre neste documento</text>
+		<text id="cmd.3dContent.trustOnce" h="6AE4F0D7">Confiar neste documento só esta vez</text>
+		<text id="cmd.3dContentOpts" h="DAD7B4F4">Opcións</text>
+		<text id="cmd.3dContentOpts.tip" h="46505A9A">Pulse para permitir estas características</text>
+		<text id="cmd.bkColor" h="799B39A6">Cor de fondo</text>
+		<text id="cmd.cameraProps" h="C62520F7">Propiedades da cámara</text>
+		<text id="cmd.defView" h="A1F14B2B">Vista  predeterminada</text>
+		<text id="cmd.fly" h="96EAF75B">&amp;Sobrevoar</text>
+		<text id="cmd.fly.tip" h="A9F39C8A">Sobrevoar</text>
+		<text id="cmd.lightSchemes" h="8C1BFE4C">Patrón de iluminación</text>
+		<text id="cmd.lights" h="41B4EB09">Activar iluminación adicional</text>
+		<text id="cmd.orthoPerspProj.ortho" h="15C31A48">Usar proxección  ortográfica</text>
+		<text id="cmd.orthoPerspProj.ortho.tip" h="B336199D">Mostra o modelo con proxección  ortográfica</text>
+		<text id="cmd.orthoPerspProj.persp" h="49402634">Usar proxección de perspectiva</text>
+		<text id="cmd.orthoPerspProj.persp.tip" h="330F26E9">Mostra o modelo con proxección de perspectiva</text>
+		<text id="cmd.pan" h="B48C4A96">&amp;Panorámica</text>
+		<text id="cmd.pan.tip" h="8B952147">Panorámica</text>
+		<text id="cmd.partOptions" h="066AF13F">Opcións para as pezas</text>
+		<text id="cmd.renderMode" h="9892CD92">Modalidade de trazado do modelo</text>
+		<text id="cmd.renderMode.default" h="F24132BD">Pre&amp;definida</text>
+		<text id="cmd.rotate" h="2D90BC43">&amp;Rotar</text>
+		<text id="cmd.rotate.tip" h="18368F2D">Rotación</text>
+		<text id="cmd.spin" h="D0678B2C">&amp;Virar</text>
+		<text id="cmd.spin.tip" h="9224F8BB">Xiro</text>
+		<text id="cmd.startPauseAnim.pause" h="743DFB17">Pausar a animación </text>
+		<text id="cmd.startPauseAnim.play" h="C2662211">Reproducir a animación</text>
+		<text id="cmd.startPauseAnim.tip" h="3A44AF42">Reproduce ou pausa a animación do modelo</text>
+		<text id="cmd.testCmd" h="79888B18">Probar arquivos 3D</text>
+		<text id="cmd.testCmd.tip" h="D422EA7A">Probas de  renderizado de arquivos en 3D e compara co de referencia.</text>
+		<text id="cmd.toolbar.hide" h="FE5E382C">Ocultar a &amp;barra de ferramentas</text>
+		<text id="cmd.toolbar.hide.tip" h="7734A008">Oculta a barra de ferramentas 3D</text>
+		<text id="cmd.toolbar.show" h="D86490DE">Mostrar a &amp;barra de ferramentas</text>
+		<text id="cmd.toolbar.show.tip" h="DF2DAC82">Mostra barra de ferramentas xunto á vista 3D</text>
+		<text id="cmd.tools" h="3D87CAC3">&amp;Ferramentas</text>
+		<text id="cmd.tree.bboxColor" h="36C9D753">Cor da caixa  envolvente...</text>
+		<text id="cmd.tree.bboxColor.tip" h="3C62FC40">Define a cor da caixa  envolvente</text>
+		<text id="cmd.tree.fitVisible" h="9F4225F9">Axustar ao &amp;visible</text>
+		<text id="cmd.tree.fitVisible.tip" h="614956B4">Enfoca a cámara para axustarse a todas as pezas visibles</text>
+		<text id="cmd.tree.hide" h="C4F1F414">Ocultar</text>
+		<text id="cmd.tree.hide.tip" h="8AA8B90C">Oculta o  nodo seleccionado</text>
+		<text id="cmd.tree.isolate" h="9FBD280C">&amp;Illar</text>
+		<text id="cmd.tree.isolate.tip" h="D5DA7C68">Oculta todos os  nodos dos modelos excepto o seleccionado</text>
+		<text id="cmd.tree.isolatePart" h="7751F8EC">Illar a peza</text>
+		<text id="cmd.tree.isolatePart.tip" h="A3D5F690">Oculta todos os  nodos dos modelos excepto a peza á que pertence o  nodo seleccionado</text>
+		<text id="cmd.tree.makeTransparent" h="0759BABB">Facer &amp;transparente</text>
+		<text id="cmd.tree.modelRenderMode" h="9892CD92">Modalidade de trazado do modelo</text>
+		<text id="cmd.tree.modelRenderMode.tip" h="9F89C88A">Define a modalidade de trazado para todo este modelo</text>
+		<text id="cmd.tree.partRenderMode" h="16069F94">Modalidade de trazado das pezas</text>
+		<text id="cmd.tree.partRenderMode.tip" h="821E3259">Define a modalidade de trazado para a peza seleccionada</text>
+		<text id="cmd.tree.show" h="C3CA8E89">Mostrar</text>
+		<text id="cmd.tree.show.tip" h="790D864F">Mostra o  nodo seleccionado</text>
+		<text id="cmd.tree.showAll" h="24F4F631">Mostrar todas as peza&amp;s</text>
+		<text id="cmd.tree.showAll.tip" h="144FE078">Mostra todas as pezas ocultas</text>
+		<text id="cmd.tree.showBBox" h="8E963AD7">Mostrar caixa  envolvente</text>
+		<text id="cmd.tree.showBBox.tip" h="3B27C053">Mostra unha caixa  envolvente ao redor da peza seleccionada</text>
+		<text id="cmd.tree.zoom2part" h="29498553">&amp;Enfocar a peza</text>
+		<text id="cmd.tree.zoom2part.tip" h="AF54E436"> Enfoza a cámara axustándoa ao  nodo seleccionado</text>
+		<text id="cmd.viewingOptions" h="B7019F33">Opcións de visión</text>
+		<text id="cmd.views" h="0F296AD5">Vista:</text>
+		<text id="cmd.walk" h="D60E509F">&amp;Andar</text>
+		<text id="cmd.walk.tip" h="944D2308">Andar</text>
+		<text id="cmd.zoom" h="33EE2C56">&amp;Escala</text>
+		<text id="cmd.zoom.tip" h="71AD5FC1">Escala</text>
+		<text id="directx9.str" h="4DB13F37">DirectX 9</text>
+		<text id="dlgcp.fov" h="A7D2D5BD">&amp;Campos de visión:</text>
+		<text id="dlgcp.g1.title" h="0C13107E">Posición</text>
+		<text id="dlgcp.g2.title" h="4288E30E">Obxectivo</text>
+		<text id="dlgcp.g3.title" h="5F78932B">Parámetros</text>
+		<text id="dlgcp.posType" h="C8F2B656">Unidades &amp;angulares</text>
+		<text id="dlgcp.roll" h="1B2556A3">&amp;Rodar:</text>
+		<text id="dlgcp.save" h="D64F3B21">Gardar vi&amp;sta de cámara ...</text>
+		<text id="dlgcp.target.x" h="93F346A4">Obxectivo X:</text>
+		<text id="dlgcp.target.y" h="2B4F21C1">Obxectivo Y:</text>
+		<text id="dlgcp.target.z" h="39FA8E2F">Obxectivo Z:</text>
+		<text id="gr.inheritProps" h="F5C46974">Herdar da vista actual:</text>
+		<text id="ibar.3dContent" h="4EE9C4B1">Información do contido 3D</text>
+		<text id="ibar.3dContent.desc" h="B9385C56">Pide permiso para activar o contido 3D nun documento</text>
+		<text id="ibar.3dContent.text" h="5E8AC651">Desactivouse o contido 3D. Active esta opción se confía na orixe do documento.</text>
+		<text id="lbl.AntiAliasing" h="050110D0">Suavizado de contorno:</text>
+		<text id="lbl.HighlightColor" h="5F548840">Cor de resaltado:</text>
+		<text id="lbl.framerate" h="E28DF43C">Taxa de fotogramas ( FPS) :</text>
+		<text id="lbl.renderingEngine" h="0F210502">Motor de trazado:</text>
+		<text id="lbl.viewName" h="64A879B2">Nome da vista:</text>
+		<text id="manageViews" h="8D0BFCAB">Xestionar as vistas</text>
+		<text id="manageViews.List.defaultItem" h="F93BCF4A">Vistas 3D</text>
+		<text id="manageViews.newViewName" h="36C63992">Vista nova</text>
+		<text id="opengl.str" h="BBBBF29E">OpenGL</text>
+		<text id="view.custom" h="A918FF38">Personalizado</text>
+		<text id="view.default" h="B6EF2024">Predeterminado</text>
+		<text id="camera.X" h="714AA303">Cámara X:</text>
+		<text id="camera.Y" h="C9F6C466">Cámara Y:</text>
+		<text id="camera.Z" h="DB436B88">Cámara Z:</text>
+		<text id="camera.azimut" h="796BF9A5">Azimuth:</text>
+		<text id="camera.altitude" h="D35D23E4">Altura:</text>
+		<text id="camera.distance" h="47D78EAE">Distancia:</text>
+	</Strings>
+</Localization>

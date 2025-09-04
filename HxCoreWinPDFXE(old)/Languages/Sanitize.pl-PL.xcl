@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Localization>
+	<Version date="20200402221245">2.00.00</Version>
+	<Author>Logilink</Author>
+	<Copyright></Copyright>
+	<Product id="PDFXEditor"/>
+	<Language eName="Polish (Poland)" lName="polski" code="pl-PL" R2L="false"/>
+	<Module name="SanitizePlugin" namespace="snt" version="8.0.337.0"/>
+	<Strings>
+		<text id="add.new.pntlist" h="8052B2AC">Dodaj nową listę szablonów...</text>
+		<text id="add.new.pntlist.tip" h="9DD2AAE5">Tworzy nową listę niestandardowych szablonów</text>
+		<text id="attachments.chk" h="E754AE2B">Szukaj w &amp;załącznikach</text>
+		<text id="autolocale.ptn" h="986476CF">Auto (%1)</text>
+		<text id="builder.tip" h="DCB5FF71">Tworzenie wyrażeń regularnych</text>
+		<text id="case.chk" h="371919EA">&amp;Uwzględnij wielkość liter</text>
+		<text id="click2seedescr" h="2B79F497">Kliknij na szablon, aby zobaczyć jego opis tutaj...</text>
+		<text id="cmd.findandredact" h="A71BA803">Znajdź i redaguj</text>
+		<text id="cmd.findandredact.tip" h="C9957B03">Znajduje tekst i oznacza rezultat do redakcji.</text>
+		<text id="cmd.list.add" h="8E2EE8C1">Dodaj</text>
+		<text id="cmd.list.addcustom.tip" h="48F73BAE">Dodaj własny szablon</text>
+		<text id="cmd.list.checkall" h="1ED93781">Zaznacz wszystko</text>
+		<text id="cmd.list.load" h="D2BD1E32">Załaduj...</text>
+		<text id="cmd.list.locale" h="2B6AC5E3">&amp;Język</text>
+		<text id="cmd.list.remove" h="FCE39C1F">Usuń</text>
+		<text id="cmd.list.removecustom.tip" h="D7AF6E36">Usuń wybrane szablony</text>
+		<text id="cmd.list.save" h="0272DFB9">Zapisz...</text>
+		<text id="cmd.list.uncheckall" h="5D53AA8D">Odznacz wszystko</text>
+		<text id="customname" h="48E7DC23">Szablon niestandardowy</text>
+		<text id="custompatterns.lbl" h="5E153556">Szablony niestandardowe (%1 z %2)</text>
+		<text id="customptn.dlg" h="8583A4FB">Szablon niestandardowy</text>
+		<text id="deletepattern1.msg" h="07465752">Czy na pewno chcesz usunąć ten wzór?</text>
+		<text id="deletepatterns.msg" h="ECB5282F">Czy na pewno chcesz usunąć wybrane niestandardowe szablony?</text>
+		<text id="editstring.lbl" h="641BB43C">Edytuj wyraz lub frazę do wyszukania</text>
+		<text id="enterphrase.lbl" h="E663CA06">Wpisz wyraz lub frazę, aby wyszukać:</text>
+		<text id="enterphrase.lbl.cue" h="F6663BF7">Wpisz wyraz lub frazę...</text>
+		<text id="example.lbl" h="489035D9">Wprowadź przykład szablonu:</text>
+		<text id="findopt.grp" h="6D2C3084">Opcje znajdywania</text>
+		<text id="findredact.dlg" h="D7CC6798">Znajdź i redaguj tekst</text>
+		<text id="hiddenText.chk" h="1065E006">Strona zawiera ukryty tekst</text>
+		<text id="history.fr.redo" h="38D56E9D">Ponów redagowanie tekstu</text>
+		<text id="history.fr.title" h="BDE7F808">Znajdź i redaguj</text>
+		<text id="history.fr.undo" h="FC974711">Cofnij redagowanie tekstu</text>
+		<text id="layers.chk" h="B5D83FAD">Strona zawiera warstwy</text>
+		<text id="marktext.chk" h="71D6C968">&amp;Oznacz znaleziony tekst do redagowania</text>
+		<text id="match.abc" h="3760672D">Dowolny znak z zestawu „abc”</text>
+		<text id="match.anynumeric" h="A6E72A4D">Dowolny znak numeryczny</text>
+		<text id="match.anyword" h="C747C7E3">Dowolny znak wyrazu</text>
+		<text id="match.intdec" h="1D7C37DC">Dopasuj liczby całkowite i dziesiętne</text>
+		<text id="match.linebegin" h="E85BEDEB">Na początku linii</text>
+		<text id="match.notabc" h="07BFD63F">Dowolny znak nie z zestawu „abc”</text>
+		<text id="match.onemore" h="A0F72662">Dowolny znak raz lub więcej razy</text>
+		<text id="match.range" h="CCF11EC0">Dowolny znak z zakresu od a do f</text>
+		<text id="match.single" h="22AEEA91">Dowolny pojedynczy znak (oprócz podziału linii)</text>
+		<text id="match.threedigits" h="F40292A5">Trzy kolejne cyfry dziesiętne</text>
+		<text id="match.whitespace" h="F4925C7A">Dowolny znak spacji</text>
+		<text id="match.wordends" h="EC27D4F5">Na początku lub na końcu wyrazu</text>
+		<text id="match.zeromore" h="4EE3FE93">Dowolny znak zero lub więcej razy</text>
+		<text id="maxcountfile.msg" h="7C0D9E22">Lista wyrazów została obcięta do maksymalnej dozwolonej wielkości: %1</text>
+		<text id="maxnumberofwords.msg" h="52B7987A">Nie można dodać nowego elementu:
+Lista przekracza maksymalną liczbę wyrazów lub fraz</text>
+		<text id="maxwordlength.msg" h="5BE34E54">Wyraz lub fraza jest za długi</text>
+		<text id="maxwordlengthfromfile.msg" h="FE7C0D03">Wyraz lub fraza został obcięty do maksymalnej dozwolonej długości: %1</text>
+		<text id="multipleword" h="C8368EA9">&amp;Wiele wyrazów lub fraz</text>
+		<text id="newstring.lbl" h="927FC81B">Dodaj nowy wyraz lub frazę do wyszukiwania</text>
+		<text id="notextwasfound" h="D1BCA29B">Nie znaleziono tekstu z pasującymi kryteriami.</text>
+		<text id="obscured.content.chk" h="1311BB99">Znaleziono przyciętą lub niewidoczną zawartość</text>
+		<text id="opt.donotshow" h="B2D782D9">Nie pokazuj ponownie tego komunikatu</text>
+		<text id="overlapping.obj.chk" h="D2955BC5">Strona zawiera nakładające się obiekty</text>
+		<text id="pagetext.chk" h="E95EC001">Szukaj w &amp;tekście strony</text>
+		<text id="patternlocale.lbl" h="5470225F">Wybierz lokalizację szablonu:</text>
+		<text id="patterns" h="ACAA6A08">&amp;Szablony</text>
+		<text id="patterns.desc.tip" h="127DB6CA">Wprowadź opis szablonu (opcjonalnie)...</text>
+		<text id="patterns.description.empty" h="CB37274C">Opis szablonu jest pusty</text>
+		<text id="patterns.example.tip" h="127DB6CA">Wprowadź opis szablonu (opcjonalnie)...</text>
+		<text id="phones.ptn" h="889BA45B">Na przykład
+555-1234
+212.555.1212
+1 (212) 555–1234</text>
+		<text id="preceding.onemore" h="0DB280A6">Poprzedni znak jeden lub więcej razy</text>
+		<text id="preceding.zeromore" h="6994F6CF">Poprzedni znak zero lub więcej razy</text>
+		<text id="preceding.zeroone" h="96A31B68">Poprzedni znak zero lub jeden raz</text>
+		<text id="progress.applyredaction" h="82CD13B5">Zastosowywanie redagowania do dokumentu...</text>
+		<text id="progress.findtext" h="9AA4E47B">Szukanie tekstu wg pasujących kryteriów...</text>
+		<text id="ptndescr.lbl" h="C56EB241">Wprowadź opis szablonu:</text>
+		<text id="ptnname.lbl" h="A7E2C5D0">Wprowadź nazwę szablonu:</text>
+		<text id="ptnvalue.lbl" h="58401EB7">Wprowadź wartość szablonu:</text>
+		<text id="rbar.sanitize" h="092C966D">Oczyść dokument</text>
+		<text id="rbar.sanitize.tip" h="B573254E">Usuwa poufne informacje, takie jak metadane, dane formularzy, niewidoczna zawartość...</text>
+		<text id="redacttext.chk" h="1E76EC28">&amp;Redaguj znaleziony tekst</text>
+		<text id="regexp.help" h="41F2BA26">Pomoc dotycząca wyrażeń regularnych</text>
+		<text id="sanitize.descr" h="6AA269FA">Oczyść dokument PDF</text>
+		<text id="sanitize.warning" h="3321EE07">Oczyszczanie dokumentu usunie ukryte dane i metadane, dzięki czemu wszelkie poufne informacje nie zostaną opublikowane w pliku PDF.
+Operacja usunie:
+• Metadane
+• Niewidoczny tekst i obrazy
+• Nakładające się obiekty
+• Dane formularzy i komentarzy
+• Osadzoną zawartość i pliki
+• Ukryte warstwy
+• Ukryte dane i komentarze
+• Dane bez odniesień</text>
+		<text id="sanitizeDoc.progr" h="062BF2F0">Oczyszczanie dokumentu...</text>
+		<text id="sanitizePage.progr" h="EA4FCD7C">Przetwarzanie strony %1</text>
+		<text id="sanitizeSave.progr" h="93EC7255">Zapisywanie oczyszczonego dokumentu...</text>
+		<text id="sanitizeconverter.name" h="9BE4E232">Oczyść konwerter</text>
+		<text id="sanitizefilter.name" h="804EA582">Oczyszczone dokumenty PDF</text>
+		<text id="saveDlg.caption" h="2FD66192">Zapisz oczyszczony dokument</text>
+		<text id="showmore.lbl" h="143C6320">Pokaż więcej...</text>
+		<text id="singleword" h="BAB11ED8">&amp;Jeden wyraz lub fraza</text>
+		<text id="snt.redact.grp" h="98BDF535">Opcje redakcji</text>
+		<text id="status.saving" h="3D2A3BDC">Zapisywanie dokumentu</text>
+		<text id="stdpatterns.lbl" h="4FF587EE">Szablony standardowe (%1 z %2)</text>
+		<text id="unsupported.format" h="5F8D8E51">Lista słów ma nieobsługiwany format</text>
+		<text id="useregexp.chk" h="299B0303">&amp;Używaj wyrażeń regularnych</text>
+		<text id="whatfind.lbl" h="27D208DF">JAKI tekst znaleźć?</text>
+		<text id="wherefind.lbl" h="76DF8D13">GDZIE szukać?</text>
+		<text id="wholewords.lbl" h="C794AEE3">&amp;Tylko całe wyrazy</text>
+		<text id="wordlist" h="637B75E0">Lista wyrazów</text>
+		<text id="wordlist.empty" h="3311A197">Lista słów jest pusta</text>
+	</Strings>
+</Localization>

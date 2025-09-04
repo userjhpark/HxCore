@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Version>0.1.0</Version>
+    <AssemblyName>HxCore.NetCore.v0.1</AssemblyName>
+    <PackageId>HxCore.NetCore</PackageId>
+    <Authors>TypeSW</Authors>
+    <Company>TypeSW.com</Company>
+    <Product>HxCore</Product>
+    <Copyright>Copyright © 2018 TypeSW</Copyright>
+    <PackageProjectUrl>https://github.com/userjhpark/HxCore</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="RestSharp" Version="106.10.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HxCore\HxCore.csproj" />
+  </ItemGroup>
+
+</Project>

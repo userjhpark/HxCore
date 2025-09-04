@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Localization>
+	<Version date="20191210185310">2.00.00</Version>
+	<Author>Hsueh Ching</Author>
+	<Copyright></Copyright>
+	<Product id="PDFXEditor"/>
+	<Language eName="Chinese (Traditional, Taiwan)" lName="中文(繁體)" code="zh-TW" R2L="false"/>
+	<Module name="U3DPlugin" namespace="u3d" version="8.0.335.0"/>
+	<Strings>
+		<text id="3DRenderingCrashed.str" h="3B1E0F07">很抱歉，3D渲染器崩潰了！要重新初始化3D渲染，請重新開啟文件。</text>
+		<text id="3DSceneFailed.str" h="27A53BDF">3D場景初始化失敗!</text>
+		<text id="DlgCameraProperties.Title" h="C62520F7">相機屬性</text>
+		<text id="PRCUnsupported.str" h="B107E80C">不支援PRC模型！</text>
+		<text id="appPrefsPage.AAType.2x" h="423B3C2B">2x</text>
+		<text id="appPrefsPage.AAType.3x" h="FA875B4E">3x</text>
+		<text id="appPrefsPage.AAType.4x" h="675063F7">4x</text>
+		<text id="appPrefsPage.AAType.None" h="F9398D7D">無</text>
+		<text id="appPrefsPage.PickMode.TreeOrder" h="F1D70337">物件樹順序</text>
+		<text id="appPrefsPage.PickMode.ZOrder" h="8F0DAF26">Z-順序</text>
+		<text id="appPrefsPage.gr.3DToolOptions" h="FA532EE7">3D工具選項</text>
+		<text id="appPrefsPage.gr.rOptions" h="A6CEA705">渲染器選項</text>
+		<text id="appPrefsPage.lb.PickMode" h="26EFD83B">選擇模式:</text>
+		<text id="appPrefsPage.name" h="86A64F71">多媒體3D</text>
+		<text id="appPrefsPage.tip" h="878BC70D">多媒體3D選項</text>
+		<text id="appPrefsPage.title" h="878BC70D">多媒體3D選項</text>
+		<text id="btn.default" h="3BF809E4">設為預設</text>
+		<text id="btn.moveDown" h="4CE68730">下移</text>
+		<text id="btn.moveUp" h="4454FC42">上移</text>
+		<text id="chck.Show3DAxesStr" h="3173CD8B">顯示3D軸</text>
+		<text id="ck.bgColor" h="799B39A6">背景顏色</text>
+		<text id="ck.cameraProps" h="C62520F7">相機屬性</text>
+		<text id="ck.crossSection" h="B6196404">截面資訊</text>
+		<text id="ck.enable3D" h="90C6F9B5">啟用3D內容</text>
+		<text id="ck.lighting" h="3C76D70F">燈光</text>
+		<text id="ck.nodesVis" h="39891BF4">節點可見性</text>
+		<text id="ck.renderMode" h="CDA80CD8">渲染模式</text>
+		<text id="cmd.3DPrefs" h="BB6488C0">3D首選項(&amp;3)...</text>
+		<text id="cmd.3dContent.trustAlways" h="C6E70253">總是信任此文件</text>
+		<text id="cmd.3dContent.trustOnce" h="6AE4F0D7">僅信任此文件一次</text>
+		<text id="cmd.3dContentOpts" h="DAD7B4F4">選項</text>
+		<text id="cmd.3dContentOpts.tip" h="46505A9A">單擊以啟用功能</text>
+		<text id="cmd.bkColor" h="799B39A6">背景顏色</text>
+		<text id="cmd.cameraProps" h="C62520F7">相機屬性</text>
+		<text id="cmd.defView" h="A1F14B2B">預設檢視</text>
+		<text id="cmd.fly" h="96EAF75B">飛行(&amp;F)</text>
+		<text id="cmd.fly.tip" h="A9F39C8A">飛行</text>
+		<text id="cmd.lightSchemes" h="8C1BFE4C">照明方案</text>
+		<text id="cmd.lights" h="41B4EB09">啟用額外照明</text>
+		<text id="cmd.orthoPerspProj.ortho" h="15C31A48">使用正投影</text>
+		<text id="cmd.orthoPerspProj.ortho.tip" h="B336199D">在正投影中渲染模型</text>
+		<text id="cmd.orthoPerspProj.persp" h="49402634">使用透視投影</text>
+		<text id="cmd.orthoPerspProj.persp.tip" h="330F26E9">在透視投影中渲染模型</text>
+		<text id="cmd.pan" h="B48C4A96">平底鍋模型(&amp;P)</text>
+		<text id="cmd.pan.tip" h="8B952147">平底鍋模型</text>
+		<text id="cmd.partOptions" h="066AF13F">部分選項</text>
+		<text id="cmd.renderMode" h="9892CD92">模型渲染模式</text>
+		<text id="cmd.renderMode.default" h="F24132BD">預設(&amp;D)</text>
+		<text id="cmd.rotate" h="2D90BC43">旋轉(&amp;R)</text>
+		<text id="cmd.rotate.tip" h="18368F2D">旋轉</text>
+		<text id="cmd.spin" h="D0678B2C">轉動(&amp;S)</text>
+		<text id="cmd.spin.tip" h="9224F8BB">轉動</text>
+		<text id="cmd.startPauseAnim.pause" h="743DFB17">暫停動畫</text>
+		<text id="cmd.startPauseAnim.play" h="C2662211">播放動畫</text>
+		<text id="cmd.startPauseAnim.tip" h="3A44AF42">播放/暫停模型動畫</text>
+		<text id="cmd.testCmd" h="79888B18">測試3D檔案</text>
+		<text id="cmd.testCmd.tip" h="D422EA7A">測試渲染3D檔案並與參考進行比較。</text>
+		<text id="cmd.toolbar.hide" h="FE5E382C">隱藏工具欄(&amp;T)</text>
+		<text id="cmd.toolbar.hide.tip" h="7734A008">隱藏3D工具欄</text>
+		<text id="cmd.toolbar.show" h="D86490DE">顯示工具欄(&amp;T)</text>
+		<text id="cmd.toolbar.show.tip" h="DF2DAC82">顯示3D檢視旁邊的工具欄</text>
+		<text id="cmd.tools" h="3D87CAC3">工具(&amp;T)</text>
+		<text id="cmd.tree.bboxColor" h="36C9D753">設定邊框顏色...</text>
+		<text id="cmd.tree.bboxColor.tip" h="3C62FC40">設定邊框顏色</text>
+		<text id="cmd.tree.fitVisible" h="9F4225F9">適合可見(&amp;F)</text>
+		<text id="cmd.tree.fitVisible.tip" h="614956B4">縮放相機到適合所有可見部分</text>
+		<text id="cmd.tree.hide" h="C4F1F414">隱藏(&amp;H)</text>
+		<text id="cmd.tree.hide.tip" h="8AA8B90C">隱藏所選節點</text>
+		<text id="cmd.tree.isolate" h="9FBD280C">隔離(&amp;I)</text>
+		<text id="cmd.tree.isolate.tip" h="D5DA7C68">隱藏除選定模型外的所有模型節點</text>
+		<text id="cmd.tree.isolatePart" h="7751F8EC">隔離部分</text>
+		<text id="cmd.tree.isolatePart.tip" h="A3D5F690">隱藏除包含所選節點部分以外的所有模型節點</text>
+		<text id="cmd.tree.makeTransparent" h="0759BABB">透明(&amp;T)</text>
+		<text id="cmd.tree.modelRenderMode" h="9892CD92">模型渲染模式</text>
+		<text id="cmd.tree.modelRenderMode.tip" h="9F89C88A">設定整個模型的渲染模式</text>
+		<text id="cmd.tree.partRenderMode" h="16069F94">部分渲染模式</text>
+		<text id="cmd.tree.partRenderMode.tip" h="821E3259">為所選部分設定渲染模式</text>
+		<text id="cmd.tree.show" h="C3CA8E89">顯示</text>
+		<text id="cmd.tree.show.tip" h="790D864F">顯示所選節點</text>
+		<text id="cmd.tree.showAll" h="24F4F631">顯示所有部分(&amp;S)</text>
+		<text id="cmd.tree.showAll.tip" h="144FE078">顯示所有隱藏的部分</text>
+		<text id="cmd.tree.showBBox" h="8E963AD7">顯示邊框</text>
+		<text id="cmd.tree.showBBox.tip" h="3B27C053">顯示所選部分周圍的邊框</text>
+		<text id="cmd.tree.zoom2part" h="29498553">縮放到部分(&amp;Z)</text>
+		<text id="cmd.tree.zoom2part.tip" h="AF54E436">將相機縮放到所選節點</text>
+		<text id="cmd.viewingOptions" h="B7019F33">檢視選項</text>
+		<text id="cmd.views" h="0F296AD5">檢視:</text>
+		<text id="cmd.walk" h="D60E509F">步行(&amp;W)</text>
+		<text id="cmd.walk.tip" h="944D2308">步行</text>
+		<text id="cmd.zoom" h="33EE2C56">縮放(&amp;Z)</text>
+		<text id="cmd.zoom.tip" h="71AD5FC1">縮放</text>
+		<text id="directx9.str" h="4DB13F37">DirectX 9</text>
+		<text id="dlgcp.fov" h="A7D2D5BD">視野(&amp;F):</text>
+		<text id="dlgcp.g1.title" h="0C13107E">位置</text>
+		<text id="dlgcp.g2.title" h="4288E30E">座標</text>
+		<text id="dlgcp.g3.title" h="5F78932B">參數</text>
+		<text id="dlgcp.posType" h="C8F2B656">角度單位(&amp;A)</text>
+		<text id="dlgcp.roll" h="1B2556A3">滾動(&amp;L):</text>
+		<text id="dlgcp.save" h="D64F3B21">儲存相機檢視(&amp;S)...</text>
+		<text id="dlgcp.target.x" h="93F346A4">座標X:</text>
+		<text id="dlgcp.target.y" h="2B4F21C1">座標Y:</text>
+		<text id="dlgcp.target.z" h="39FA8E2F">座標Z:</text>
+		<text id="gr.inheritProps" h="F5C46974">從當前檢視繼承:</text>
+		<text id="ibar.3dContent" h="4EE9C4B1">3D內容資訊</text>
+		<text id="ibar.3dContent.desc" h="B9385C56">請求允許在文件中啟用3D內容</text>
+		<text id="ibar.3dContent.text" h="5E8AC651">3D內容已被禁用，如果您信任此文件，請啟用此功能。</text>
+		<text id="lbl.AntiAliasing" h="050110D0">抗鋸齒:</text>
+		<text id="lbl.HighlightColor" h="5F548840">突出顯示顏色:</text>
+		<text id="lbl.framerate" h="E28DF43C">幀率(FPS):</text>
+		<text id="lbl.renderingEngine" h="0F210502">渲染引擎:</text>
+		<text id="lbl.viewName" h="64A879B2">檢視名稱:</text>
+		<text id="manageViews" h="8D0BFCAB">管理檢視</text>
+		<text id="manageViews.List.defaultItem" h="F93BCF4A">3D檢視</text>
+		<text id="manageViews.newViewName" h="36C63992">新建檢視</text>
+		<text id="opengl.str" h="BBBBF29E">OpenGL</text>
+		<text id="view.custom" h="A918FF38">自定義</text>
+		<text id="view.default" h="B6EF2024">預設</text>
+		<text id="camera.X" h="714AA303">相機 X:</text>
+		<text id="camera.Y" h="C9F6C466">相機 Y:</text>
+		<text id="camera.Z" h="DB436B88">相機 Z:</text>
+		<text id="camera.azimut" h="796BF9A5">方位:</text>
+		<text id="camera.altitude" h="D35D23E4">高度:</text>
+		<text id="camera.distance" h="47D78EAE">距離:</text>
+	</Strings>
+</Localization>
