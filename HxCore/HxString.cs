@@ -253,6 +253,7 @@ namespace HxCore
             // Return the hexadecimal string.
             return sBuilder.ToString();
         }
+        
         /// <summary>
         /// Byte형을 Encoding Type 문자열로 변환
         /// </summary>
@@ -340,6 +341,118 @@ namespace HxCore
                              .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                              .ToArray();
         }
+
+        #region 2025-10-01 By JHP / 추가
+        /// <summary>
+        /// Byte형을 문자열로 변환
+        /// </summary>
+        /// <param name="input">입력 값(Bytes)</param>
+        /// <param name="format">문자 포멧</param>
+        /// <returns>변환 값(String)</returns>
+        public static string ConvertBytesToString(byte[] input, string format = null)
+        {
+            return GetBytes2String(input, format);
+        }
+        public static string ConvertBytesToHexStringLower(byte[] bytes)
+        {
+            if (bytes == null || bytes.Length == 0) { return string.Empty; }
+
+            StringBuilder hex = new StringBuilder(bytes.Length * 2);
+            foreach (byte b in bytes)
+                hex.AppendFormat("{0:x2}", b); // Lowercase format
+            return hex.ToString();
+        }
+        public static string ConvertBytesToHexStringUpper(byte[] bytes)
+        {
+            if (bytes == null || bytes.Length == 0)
+                return string.Empty;
+            StringBuilder hex = new StringBuilder(bytes.Length * 2);
+            foreach (byte b in bytes)
+                hex.AppendFormat("{0:X2}", b); // Uppercase format
+            return hex.ToString();
+        }
+        public static byte[] ConvertHexStringToByteArray(string hex)
+        {
+            if (string.IsNullOrWhiteSpace(hex))
+                return Array.Empty<byte>();
+            int length = hex.Length;
+            byte[] bytes = new byte[length / 2];
+            for (int i = 0; i < length; i += 2)
+                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+            return bytes;
+        }
+
+
+        public static string GetMD5Checksum(byte[] bytes)
+        {
+            string Result = null;
+
+            if (!bytes.Any()) { return Result; }
+
+            var hashAlgorithm = System.Security.Cryptography.MD5.Create();
+            if (hashAlgorithm == null) {  return Result; }
+            
+            var hashBytes = hashAlgorithm.ComputeHash(bytes);
+            if(hashBytes == null || hashBytes.Any() != true || hashBytes.Length <= 0) { return Result; }
+
+            Result = ConvertBytesToHexStringLower(hashBytes) ?? string.Empty;
+
+            return Result;
+            //return System.Security.Cryptography.MD5.HashData(bytes) is byte[] hash ? Convert.ToHexStringLower(hash) : string.Empty;
+        }
+        public static string GetSHA1Checksum(byte[] bytes)
+        {
+            string Result = null;
+
+            if (!bytes.Any()) { return Result; }
+
+            var hashAlgorithm = System.Security.Cryptography.SHA1.Create();
+            if (hashAlgorithm == null) { return Result; }
+
+            var hashBytes = hashAlgorithm.ComputeHash(bytes);
+            if (hashBytes == null || hashBytes.Any() != true || hashBytes.Length <= 0 || hashBytes.Length != bytes.Length) { return Result; }
+
+            Result = ConvertBytesToHexStringLower(hashBytes) ?? string.Empty;
+
+            return Result;
+            //return System.Security.Cryptography.SHA1.HashData(bytes) is byte[] hash ? Convert.ToHexStringLower(hash) : string.Empty;
+        }
+        public static string GetSHA256Checksum(byte[] bytes)
+        {
+            string Result = null;
+
+            if (!bytes.Any()) { return Result; }
+
+            var hashAlgorithm = System.Security.Cryptography.SHA256.Create();
+            if (hashAlgorithm == null) { return Result; }
+
+            var hashBytes = hashAlgorithm.ComputeHash(bytes);
+            if (hashBytes == null || hashBytes.Any() != true || hashBytes.Length <= 0 || hashBytes.Length != bytes.Length) { return Result; }
+
+            Result = ConvertBytesToHexStringLower(hashBytes) ?? string.Empty;
+
+            return Result;
+            //return System.Security.Cryptography.SHA256.HashData(bytes) is byte[] hash ? Convert.ToHexStringLower(hash) : string.Empty;
+        }
+        public static string GetSHA512Checksum(byte[] bytes)
+        {
+            string Result = null;
+
+            if (!bytes.Any()) { return Result; }
+
+            var hashAlgorithm = System.Security.Cryptography.SHA512.Create();
+            if (hashAlgorithm == null) { return Result; }
+
+            var hashBytes = hashAlgorithm.ComputeHash(bytes);
+            if (hashBytes == null || hashBytes.Any() != true || hashBytes.Length <= 0 || hashBytes.Length != bytes.Length) { return Result; }
+
+            Result = ConvertBytesToHexStringLower(hashBytes) ?? string.Empty;
+
+            return Result;
+            //return System.Security.Cryptography.SHA512.HashData(bytes) is byte[] hash ? Convert.ToHexStringLower(hash) : string.Empty;
+        }
+
+        #endregion
 
         public static Encoding GetEncodingType(HxEncodingType encodingType)
         {

@@ -1144,6 +1144,7 @@ namespace HxCore
             var hashStr = Convert.ToBase64String(hash);
             return hashStr.TrimEnd('=');
         }
+
         #endregion
 
         public static string MD5CheckSum(string filename)
@@ -1224,6 +1225,62 @@ namespace HxCore
             return Result;
         }
 
+        public static string GetFileMD5Checksum(string filePath)
+        {
+            if (HxString.IsNullOrWhiteSpace(filePath) == true || HxFile.IsFileExists(filePath) != true) { return string.Empty; }
+
+            using (var md5 = System.Security.Cryptography.MD5.Create())
+            {
+                using (var stream = File.OpenRead(filePath))
+                {
+                    var hash = md5.ComputeHash(stream);
+                    //return Convert.ToHexStringLower(hash);
+                    return HxString.ConvertBytesToHexStringLower(hash);
+                }
+            }
+        }
+        internal static string GetFileSHA1Checksum(string filePath)
+        {
+            if (HxString.IsNullOrWhiteSpace(filePath) == true || HxFile.IsFileExists(filePath) != true) { return string.Empty; }
+
+            using (var md5 = System.Security.Cryptography.SHA1.Create())
+            {
+                using (var stream = File.OpenRead(filePath))
+                {
+                    var hash = md5.ComputeHash(stream);
+                    //return Convert.ToHexStringLower(hash);
+                    return HxString.ConvertBytesToHexStringLower(hash);
+                }
+            }
+        }
+        internal static string GetFileSHA256Checksum(string filePath)
+        {
+            if (HxString.IsNullOrWhiteSpace(filePath) == true || HxFile.IsFileExists(filePath) != true) { return string.Empty; }
+
+            using (var md5 = System.Security.Cryptography.SHA256.Create())
+            {
+                using (var stream = File.OpenRead(filePath))
+                {
+                    var hash = md5.ComputeHash(stream);
+                    //return Convert.ToHexStringLower(hash);
+                    return HxString.ConvertBytesToHexStringLower(hash);
+                }
+            }
+        }
+        internal static string GetFileSHA512Checksum(string filePath)
+        {
+            if (HxString.IsNullOrWhiteSpace(filePath) == true || HxFile.IsFileExists(filePath) != true) { return string.Empty; }
+
+            using (var md5 = System.Security.Cryptography.SHA512.Create())
+            {
+                using (var stream = File.OpenRead(filePath))
+                {
+                    var hash = md5.ComputeHash(stream);
+                    //return Convert.ToHexStringLower(hash);
+                    return HxString.ConvertBytesToHexStringLower(hash);
+                }
+            }
+        }
 
         #region File 처리
         /// <summary>
@@ -2313,8 +2370,8 @@ namespace HxCore
             {
                 throw ex;
             }
-            
         }
+        
 
         public static string GetTextFileReadAllText(string fileName, Encoding encoding)
         {
@@ -2335,6 +2392,7 @@ namespace HxCore
             }
 
         }
+        
 
         public static string[] GetTextFileReadAllLines(string fileName)
         {
@@ -2355,6 +2413,7 @@ namespace HxCore
             }
             
         }
+        
         public static List<string> GetTextFileStreamReader(string fileName)
         {
             List<string> Result = null;
@@ -2380,6 +2439,24 @@ namespace HxCore
                 throw ex;
             }
             return Result;
+        }
+
+        public static string FileReadAllTextToString(string fileName)
+        {
+            return GetTextFileReadAllText(fileName);
+        }
+        public static string FileReadAllTextToString(string fileName, Encoding encoding)
+        {
+            return GetTextFileReadAllText(fileName, encoding);
+        }
+
+        public static string[] FileReadAllLinesToArray(string fileName)
+        {
+            return GetTextFileReadAllLines(fileName);
+        }
+        public static List<string> ReadStreamReaderLinesToList (string fileName)
+        {
+            return GetTextFileStreamReader(fileName);
         }
         #endregion
 

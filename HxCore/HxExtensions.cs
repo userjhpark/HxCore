@@ -1285,11 +1285,23 @@ namespace HxCore
         {
             return HxUtils.ConvertDatatableToJsonString(sender, bSerializeObject);
         }
-        public static string ToJsonStringEx(this object sender, bool bSerializeObject = true)
+        [Obsolete("더 이상 사용하지 마세요.")]
+        public static string ToJsonStringEx(this object sender, bool bSerializeObject)
         {
             //return HxUtils.ConvertSerializeObjectToJsonString(sender);
             return HxUtils.JsonSerializeObject(sender);
         }
+        public static string ToJsonStringEx(this object sender)
+        {
+            //return HxUtils.ConvertSerializeObjectToJsonString(sender);
+            return HxUtils.JsonSerializeObject(sender);
+        }
+        public static string ToJsonStringWithNameingCaseEx(this object sender, HxNameingCaseType caseType)
+        {
+            //return HxUtils.ConvertSerializeObjectToJsonString(sender);
+            return HxUtils.JsonSerializeWithNameingCase(sender, caseType);
+        }
+        
         /// <summary>
         /// [Extension] DataTable To JSON JArray
         /// </summary>

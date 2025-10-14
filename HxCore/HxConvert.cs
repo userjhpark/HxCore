@@ -17,7 +17,7 @@ namespace HxCore
     /// <summary>
     ///  기본 변수 타입은 .NET의 Conver 이용 추천, 사용자 정의 타입변환 추천 Custom Class
     /// </summary>
-    public class HxConvert
+    public partial class HxConvert
     {
 
         #region 변수 Convert
@@ -2338,6 +2338,7 @@ namespace HxCore
             }
             return null;
         }
+
         #region DataTable / DataRow
         
         public static T[] ConvertDataRowToArray<T>(DataRowCollection rows)
@@ -2362,11 +2363,7 @@ namespace HxCore
         }
         public static DataRow[] ConvertToDataRowArray(DataTable data)
         {
-            DataRow[] Result = ConvertDataTableToArray<DataRow>(data);
-            if (Result == null)
-            {
-                Result = data.Select();
-            }
+            DataRow[] Result = ConvertDataTableToArray<DataRow>(data) ?? data.Select();
             return Result;
         }
         public static DataRow[] ConvertToDataRowArray(DataRowCollection rows)
@@ -2375,5 +2372,96 @@ namespace HxCore
             return Result;
         }
         #endregion
+
+        #region DataTable <-> List<Dictionary<string, object>> = Json Array??
+       
+        /// <summary>
+        /// DataTable형태를 List<Dictionary<string, object>> 형태로 변환
+        /// </summary>
+        /// <param name="list">변환할 DataTable</param>
+        /// <returns>변환된 List</returns>
+        public static List<Dictionary<string, object>> ToListDictionary(DataTable data)
+        {
+            if (data == null || data.Columns.Count <= 0 || data.Rows.Count <= 0) { return null; }
+
+            List<Dictionary<string, object>> Result = new List<Dictionary<string, object>>();
+            foreach (DataRow dr in data.Rows)
+            {
+                Dictionary<string, object> r = new Dictionary<string, object>();
+                foreach (DataColumn dc in data.Columns)
+                {
+                    object val = dr[dc];
+                    //if (val == null || val == DBNull.Value) { continue; }
+                    if (val == null || val == DBNull.Value)
+                    {
+                        r[dc.ColumnName] = null;
+                    }
+                    else
+                    {
+                        r[dc.ColumnName] = dr[dc];
+                    }
+                }
+                Result.Add(r);
+            }
+
+            return Result;
+        }
+        /// <summary>
+        /// DataTable형태를 List<Dictionary<string, object>> 형태로 변환 = ToListDictionary
+        /// </summary>
+        /// <param name="list">변환할 DataTable</param>
+        /// <returns>변환된 List</returns>
+        public static List<Dictionary<string, object>> ToJsonList(DataTable data)
+        {
+            return ToListDictionary(data);
+        }
+
+        /// <summary>
+        /// List<Dictionary<string, object>> 형태의 데이터를 DataTable로 변환
+        /// </summary>
+        /// <param name="list">변환할 데이터 리스트</param>
+        /// <returns>변환된 DataTable</returns>
+        public static DataTable ToDataTable(List<Dictionary<string, object>> list)
+        {
+            DataTable Result = new DataTable();
+
+            // 리스트가 비어있으면 빈 DataTable 반환
+            if (list == null || list.Count == 0)
+            {
+                return Result;
+            }
+
+            // --- 1. 열(Column) 생성 ---
+            // 리스트의 첫 번째 항목(Dictionary)의 키를 사용하여 열을 정의
+            foreach (string strColName in list[0].Keys)
+            {
+                // object 타입으로 열을 생성하여 다양한 데이터 타입을 포용
+                Result.Columns.Add(new DataColumn(strColName, typeof(object)));
+            }
+
+            // --- 2. 행(Row) 채우기 ---
+            foreach (Dictionary<string, object> rec in list)
+            {
+                DataRow row = Result.NewRow();
+                foreach (DataColumn dc in Result.Columns.Cast<DataColumn>())
+                {
+                    // 해당 키가 사전에 존재하면 값을 할당
+                    if (rec.TryGetValue(dc.ColumnName, out object value))
+                    {
+                        // C#의 null을 데이터베이스 null인 DBNull.Value로 변환
+                        row[dc.ColumnName] = value ?? DBNull.Value;
+                    }
+                    else
+                    {
+                        // 키가 존재하지 않으면 DBNull.Value를 할당
+                        row[dc.ColumnName] = DBNull.Value;
+                    }
+                }
+                Result.Rows.Add(row);
+            }
+
+            return Result;
+        }
     }
+    #endregion
 }

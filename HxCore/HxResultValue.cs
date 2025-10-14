@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -221,6 +222,12 @@ namespace HxCore
             this.Value = data?.Copy();
         }
 
+        public HxResultValue(object value)
+            : this()
+        {
+            this.Value = value;
+        }
+
         protected void SetObjectValue(object pValue)
         {
             _value = pValue;
@@ -241,27 +248,47 @@ namespace HxCore
                 {
                     strType = "DataView";
                 }
-                else if (_value is Array)
+                else if (_value is Array || _value is ArrayList)
                 {
                     strType = "Array";
                 }
-                else if (_value is List<object>)
+                else if (_value is IDictionary)
                 {
-                    strType = "Array";
+                    strType = "Dictionary";
+                }
+                else if (_value is IList)
+                {
+                    strType = "List";
+                }
+                else if (_value is List<Dictionary<string, object>>)
+                {
+                    strType = "List";
+                }
+                else if (_value is List<System.Collections.DictionaryBase>)
+                {
+                    strType = "List";
+                }
+                else if (_value is IList<Object>)
+                {
+                    strType = "List";
                 }
                 else if (_value is System.Collections.DictionaryBase)
                 {
                     strType = "Dictionary";
                 }
+                else if (_value is ICollection)
+                {
+                    strType = "array";
+                }
                 else if (_value is IEnumerable<object>)
                 {
-                    strType = "Array";
+                    strType = "array";
                 }
-                else if (_value is int || Value is uint || Value is Int16 || Value is Int64)
+                else if (_value is int || _value is uint || _value is Int16 || _value is Int64)
                 {
                     strType = "Int";
                 }
-                else if (_value is Decimal || Value is float)
+                else if (_value is decimal || _value is float || _value is double)
                 {
                     strType = "Number";
                 }
@@ -272,6 +299,10 @@ namespace HxCore
                 else if (_value is string)
                 {
                     strType = "String";
+                }
+                else if (_value is DateTime)
+                {
+                    strType = "DateTime";
                 }
                 else if (strType.EndsWith("Rec") == true)
                 {

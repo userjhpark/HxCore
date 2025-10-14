@@ -281,9 +281,11 @@ namespace HxCore
             return Result;
         }
 
-#endregion
+        #endregion
 
-#region Array / List / Dictionary
+        
+
+        #region Array / List / Dictionary
         public static string GetArrayJoin(string[] values, string separatorChar = " ", string formatString = "{0}")
         {
             /*
@@ -1201,9 +1203,9 @@ namespace HxCore
         {
             //
             if (IgnoreCase != false)
-                return RegexTagMatchCount(input, RegexOptions.IgnoreCase);
+                return RegexTagMatchCount(input, RegexOptions.IgnoreCase, pattern);
             else
-                return RegexTagMatchCount(input, RegexOptions.None);
+                return RegexTagMatchCount(input, RegexOptions.None, pattern);
         }
 
         public static string RegexParrernReplace(string pattern)
@@ -1408,6 +1410,34 @@ namespace HxCore
             return default;
         }
 
+        public static string JsonSerializeWithNameingCase(object sender, HxNameingCaseType caseType)
+        {
+            //return HxUtils.ConvertSerializeObjectToJsonString(sender);
+            return HxCasing.ToJsonString(sender, caseType);
+        }
+
+        public static T JsonDeserializeObjectWithNameingCase<T>(string value, HxNameingCaseType caseType)
+        {
+            return HxCasing.ToJsonDeserializeObject<T>(value, caseType);
+        }
+
+
+
+        #endregion
+
+        #region DataTable To List<Dictionary<string, object>> => Json Array??
+        public static List<Dictionary<string, object>> ToJsonList(DataTable data)
+        {
+            return HxConvert.ToJsonList(data);
+        }
+        public static List<Dictionary<string, object>> ToJsonListWithNamingCase(DataTable data, HxNameingCaseType nameingCaseType)
+        {
+            return HxCasing.ToJsonListWithNamingCase(data, nameingCaseType);
+        }
+        public static List<Dictionary<string, object>> ToJsonList(DataTable data, HxNameingCaseType nameingCaseType)
+        {
+            return HxCasing.ToJsonListWithNamingCase(data, nameingCaseType);
+        }
         #endregion
 
         #region HxResultValue
@@ -1489,7 +1519,7 @@ namespace HxCore
         /// [OS]UserDomainName
         /// </summary>
         public static string PCDomainName => GetOSUserDomainName();
-        private static string _PCDomainName = Environment.UserDomainName;
+        private static readonly string _PCDomainName = Environment.UserDomainName;
         /// <summary>
         /// [OS]UserDomainName
         /// </summary>
@@ -1683,6 +1713,7 @@ namespace HxCore
                         tmpFileName = HxCrypt.RandPass();
                     }
                     /*
+                    //string sp1 = "―"; string sp2 = "√";
                     string fileCheck = fileInfo.FILE_CHECK.ToStringEx();
                     if (fileCheck.IsNullOrWhiteSpaceEx())
                     {
@@ -1704,7 +1735,8 @@ namespace HxCore
                     if (groupNum.IsNullOrWhiteSpaceEx() != true)
                     {
                         groupNum = string.Format("{0}{1}", sp2, groupNum.PadLeft(4, 'x'));
-                    } 
+                    }
+                    
                     Result = string.Format("{0}{1}{2}{3}.tmp.{4}", prefix, fileNum, sp1, tmpFileName, fileExt); //, HxString.GetNowLongDateTimeString()
                     */
                     Result = string.Format("{0}{1}.{2}", prefix, tmpFileName, fileExt); //, HxString.GetNowLongDateTimeString()
@@ -1835,7 +1867,7 @@ namespace HxCore
                 if (query != null)
                 {
                     ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
-                    foreach (ManagementObject mo in searcher.Get())
+                    foreach (ManagementObject mo in searcher.Get().Cast<ManagementObject>())
                     {
                         if ((bool)mo["partofdomain"] != true)
                         {
@@ -1892,7 +1924,7 @@ namespace HxCore
                 {
                     ObjectQuery oq = new System.Management.ObjectQuery("SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled='TRUE'");
                     ManagementObjectSearcher query1 = new ManagementObjectSearcher(oq);
-                    foreach (ManagementObject mo in query1.Get())
+                    foreach (ManagementObject mo in query1.Get().Cast<ManagementObject>())
                     {
                         string[] address = (string[])mo["IPAddress"];
                         if (address[0] == ip && mo["MACAddress"] != null)
@@ -1939,7 +1971,7 @@ namespace HxCore
                 {
                     ObjectQuery oq = new System.Management.ObjectQuery("SELECT * FROM win32_LogicalDisk");
                     ManagementObjectSearcher query1 = new ManagementObjectSearcher(oq);
-                    foreach (ManagementObject mo in query1.Get())
+                    foreach (ManagementObject mo in query1.Get().Cast<ManagementObject>())
                     {
                         int driveType = mo.GetPropertyValue("DriveType").ToIntEx();
                         string driveName = mo.GetPropertyValue("Name").ToStringEx();
@@ -1990,7 +2022,7 @@ namespace HxCore
             {
                 Result = new List<string>();
                 ManagementObjectSearcher query1 = new ManagementObjectSearcher(oq);
-                foreach (ManagementObject mo in query1.Get())
+                foreach (ManagementObject mo in query1.Get().Cast<ManagementObject>())
                 {
                     _ = mo.GetPropertyValue("DriveType").ToIntEx();
                     _ = mo.GetPropertyValue("Name").ToStringEx();
@@ -2009,7 +2041,7 @@ namespace HxCore
                 ManagementClass managClass = new ManagementClass("win32_processor");
                 ManagementObjectCollection managCollec = managClass.GetInstances();
 
-                foreach (ManagementObject managObj in managCollec)
+                foreach (ManagementObject managObj in managCollec.Cast<ManagementObject>())
                 {
                     //Get only the first CPU's ID
                     Result = managObj.Properties["processorID"].Value.ToStringEx();
@@ -2092,5 +2124,7 @@ namespace HxCore
             }
             return Result;
         }
+
+
     }
 }

@@ -124,7 +124,7 @@ namespace HxCore
         }
 
         public static IHxSetValue FromJson(string json) => JsonConvert.DeserializeObject<IHxSetValue>(json, Converter.JsonSettings);
-        //public static string ToJson(IHxStructSetValue self) => JsonConvert.SerializeObject(self, Converter.Settings);
+        public static string ToJson(IHxSetValue self) => JsonConvert.SerializeObject(self, Converter.JsonSettings);
        
 
         public static class Converter
