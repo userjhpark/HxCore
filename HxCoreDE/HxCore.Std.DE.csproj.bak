@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DevExpress.Document.Processor" Version="22.2.9">
+    <PackageReference Include="DevExpress.Document.Processor" Version="22.2.12">
       <GeneratePathProperty></GeneratePathProperty>
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>

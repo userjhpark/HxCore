@@ -62,6 +62,11 @@ namespace HxCore
         [JsonProperty("mod_user")]
         public string MOD_USER { get; set; }
         #endregion
+
+        public DBNull DbNullValue => DBNull.Value;
+
+        public object DbNullToObject => DbNullValue.ToDBNullObjectEx();
+
         public HxDbModelSetValue()
         {
             ; ;

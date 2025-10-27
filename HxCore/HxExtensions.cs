@@ -51,7 +51,8 @@ namespace HxCore
             if (value == null)
             {
                 return true;
-            } else if (value != null && (value == 0 || value == int.MinValue))
+            }
+            else if (value != null && (value == 0 || value == int.MinValue))
             {
                 return true;
             }
@@ -364,7 +365,7 @@ namespace HxCore
         public static string ToStringEx(this object sender, string defaultValue)
         {
             string Result = sender.ToStringEx();
-            if(Result.IsNullOrWhiteSpaceEx() == true && defaultValue.IsNullOrWhiteSpaceEx() != true)
+            if (Result.IsNullOrWhiteSpaceEx() == true && defaultValue.IsNullOrWhiteSpaceEx() != true)
             {
                 Result = defaultValue;
             }
@@ -373,7 +374,7 @@ namespace HxCore
 
         public static string ToStringNullorEmptyEx(this object sender, string defaultValue = "", bool bBooleanTypeNotNullToConvertYorN = false)
         {
-            if(sender.IsNullOrWhiteSpaceEx() != true)
+            if (sender.IsNullOrWhiteSpaceEx() != true)
             {
                 return sender.ToStringEx(bBooleanTypeNotNullToConvertYorN);
             }
@@ -415,6 +416,7 @@ namespace HxCore
             }
             return Result;
         }
+
 
         public static string ToSize2KByteStringEx(this long sender)
         {
@@ -498,7 +500,7 @@ namespace HxCore
 
         public static string ToStringEx(this List<string> sender, string separatorChar = " ")
         {
-            if(sender != null && sender.Count > 0)
+            if (sender != null && sender.Count > 0)
             {
                 string[] arry = sender.ToArray();
                 return HxUtils.GetArrayJoin(arry, separatorChar);
@@ -678,7 +680,7 @@ namespace HxCore
         {
             return HxConvert.ConvertTo<T>(sender);
         }
-        
+
         /// <summary>
         /// [Extension] 지정된 날짜포멧의 문자열을 DateTime으로 형 변환(NULL : 1900-01-01)
         /// </summary>
@@ -780,7 +782,7 @@ namespace HxCore
                         Result = HxString.GetDateTime(value.ToStringEx(), dateFormat);
                     }
                     //Result = Result.GetValueOrDefault(minCustomDateValue);
-                    if (Result == minCustomDateValue || Result == DateTime.MinValue ||(Result != null && Result <= minCustomDateValue))
+                    if (Result == minCustomDateValue || Result == DateTime.MinValue || (Result != null && Result <= minCustomDateValue))
                     {
                         Result = null;
                     }
@@ -1099,10 +1101,10 @@ namespace HxCore
         public static IEnumerable<T> AddEx<T>(this IEnumerable<T> sender, T value, bool bNotExistCaseAdd = false)
         {
             bool bAddAction = true;
-            if(sender != null && sender.Count() > 0)
+            if (sender != null && sender.Count() > 0)
             {
                 int e = sender.Where(r => r.Equals(value)).Count();
-                if(e > 0 && bNotExistCaseAdd != true)
+                if (e > 0 && bNotExistCaseAdd != true)
                 {
                     bAddAction = false;
                 }
@@ -1163,7 +1165,7 @@ namespace HxCore
             return HxEnumerable.Add<string, object>(sender, key, value, bOverwrite);
         }
 
-        
+
         /// <summary>
         /// [Extension] Dictionary에 값 수정
         /// </summary>
@@ -1189,11 +1191,11 @@ namespace HxCore
             }
             else
             {
-                if(sender == null)
+                if (sender == null)
                 {
                     sender = new Dictionary<TKey, TVal>();
                 }
-                foreach(var item in keyValuePairs)
+                foreach (var item in keyValuePairs)
                 {
                     sender.AddEx(item.Key, item.Value, bNotExistCaseAdd);
                 }
@@ -1301,7 +1303,7 @@ namespace HxCore
             //return HxUtils.ConvertSerializeObjectToJsonString(sender);
             return HxUtils.JsonSerializeWithNameingCase(sender, caseType);
         }
-        
+
         /// <summary>
         /// [Extension] DataTable To JSON JArray
         /// </summary>
@@ -1330,7 +1332,7 @@ namespace HxCore
                     Debug.WriteLine(ex);
                     //throw;
                 }
-                
+
             }
             return null;
         }
@@ -1373,7 +1375,7 @@ namespace HxCore
         public static DataTable GetDataTableEx(this DataSet sender, string name)
         {
             DataTable Result = null;
-            if(sender != null && sender.Tables.Count > 0 && sender.Tables.Contains(name))
+            if (sender != null && sender.Tables.Count > 0 && sender.Tables.Contains(name))
             {
                 Result = sender.Tables[name];
             }
@@ -1588,7 +1590,7 @@ namespace HxCore
         {
             return HxUtils.ConvertDataRowToNullableRecord<T>(sender);
         }
-        
+
         public static DataTable ToDataTableEx<T>(this IEnumerable<T> sender, string tableName = null, HxDbColumnNameCharType colNameCharType = HxDbColumnNameCharType.Original)
             where T : IHxSetValue, new()
         {
@@ -1628,7 +1630,7 @@ namespace HxCore
         }
 
 
-        
+
 
         /*
         /// <summary>
@@ -1662,7 +1664,7 @@ namespace HxCore
         */
         #endregion
 
-        
+
         public static IEnumerable<TResult> LeftOuterJoin<TLeft, TRight, TKey, TResult>(this IEnumerable<TLeft> left, IEnumerable<TRight> right, Func<TLeft, TKey> leftKey, Func<TRight, TKey> rightKey,
             Func<TLeft, TRight, TResult> result)
         {
@@ -1762,8 +1764,8 @@ namespace HxCore
                 sender.GetType().GetMember(sender.ToString()).FirstOrDefault()?.
                     GetCustomAttributes(false).OfType<System.Runtime.Serialization.EnumMemberAttribute>().
                     FirstOrDefault();
-                if (attr == null)
-                    return sender.ToString();
+            if (attr == null)
+                return sender.ToString();
             return attr.Value;
         }
         public static string ToDescriptionAttributeValueStringEx(this Enum sender)
@@ -1791,7 +1793,7 @@ namespace HxCore
         public static string GetDescriptionEx(this Enum sender, bool bNullIsGetName = false)
         {
             string Result = HxEnum.GetDescriptionAttr(sender);
-            if(Result.IsNullOrWhiteSpaceEx() == true && bNullIsGetName == true)
+            if (Result.IsNullOrWhiteSpaceEx() == true && bNullIsGetName == true)
             {
                 Result = HxEnum.GetEnumName(sender);
             }
@@ -1866,6 +1868,11 @@ namespace HxCore
         public static string PadRightEx(this string input, int totalWidth, char paddingChar = ' ', bool isInputWidthBigApply = false)
         {
             return HxString.PadRight(input, totalWidth, paddingChar, isInputWidthBigApply);
+        }
+
+        public static object ToDBNullObjectEx(this DBNull sender)
+        {
+            return (object)DBNull.Value;
         }
     }
 }

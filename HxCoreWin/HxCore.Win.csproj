@@ -137,6 +137,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x86\signtool.exe" sign /f "E:\DevSpace\etc\인증서\CodeSign\chain\htenc.co.kr.pfx" /p cimage1004@ /fd sha256 /v $(TargetPath)</PostBuildEvent>
+    <PostBuildEvent>"E:\DevSpace\etc\Windows_Kits_bin\x86\signtool.exe" sign /f "E:\DevSpace\etc\인증서\CodeSign\chain\htenc.co.kr.pfx" /p cimage1004@ /fd sha256 /v $(TargetPath)</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -165,23 +165,23 @@ namespace HxCore
             return Result;
         }
 
-        public static string SelectQueryString(string queryString, string mWhere)
+        public static string SelectQueryString(string baseQuery, string additionalConditions)
         {
-            return HxUtils.SelectQueryString(queryString, mWhere);
+            return HxUtils.SelectQueryString(baseQuery, additionalConditions);
         }
-        public static string GetQueryString(string queryString, string pWhere)
+        public static string GetQueryString(string baseQuery, string additionalConditions)
         {
-            return HxUtils.SelectQueryString(queryString, pWhere);
-        }
-
-        public static string GetSelectQueryString(string queryString, string pWhere)
-        {
-            return HxUtils.SelectQueryString(queryString, pWhere);
+            return HxUtils.SelectQueryString(baseQuery, additionalConditions);
         }
 
-        public static string OrderByQueryString(string queryString, string mOrderBy)
+        public static string GetSelectQueryString(string baseQuery, string additionalConditions)
         {
-            return HxUtils.OrderByQueryString(queryString, mOrderBy);
+            return HxUtils.SelectQueryString(baseQuery, additionalConditions);
+        }
+
+        public static string OrderByQueryString(string baseQuery, string additionalOrderby)
+        {
+            return HxUtils.OrderByQueryString(baseQuery, additionalOrderby);
         }
 
         protected virtual object GetCustomPropertyValue(string name, bool bIgnoreCaseToUpperOrToLower = true, bool bThrowException = false)
@@ -434,7 +434,6 @@ namespace HxCore
             }
             return Result;
         }
-
         
     }
 

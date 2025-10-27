@@ -181,6 +181,8 @@ namespace HxCore
         public static string GetFileNameExt(string fileName, bool isFileExtLower = true)
         {
             string Result = string.Empty;
+            if (fileName.IsNullOrWhiteSpaceEx() == true) return Result;
+
             try
             {
                 string strFileName = GetLongFileName(fileName);
@@ -2457,6 +2459,10 @@ namespace HxCore
         public static List<string> ReadStreamReaderLinesToList (string fileName)
         {
             return GetTextFileStreamReader(fileName);
+        }
+        public static byte[] GetBytesFromBase64Decode(string strDocFileBase64)
+        {
+            return HxString.GetBytesFromBase64Decode(strDocFileBase64);
         }
         #endregion
 

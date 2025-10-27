@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -299,6 +300,8 @@ namespace HxCore
         /// <returns>변환 값</returns>
         public static byte[] GetString2Bytes(string input, HxEncodingType encodingType = HxEncodingType.UTF8)
         {
+            if(input.IsNullOrWhiteSpaceEx() == true) { return null; }
+
             byte[] Result;
             switch (encodingType)
             {
@@ -387,7 +390,7 @@ namespace HxCore
         {
             string Result = null;
 
-            if (!bytes.Any()) { return Result; }
+            if (bytes == null || !bytes.Any()) { return Result; }
 
             var hashAlgorithm = System.Security.Cryptography.MD5.Create();
             if (hashAlgorithm == null) {  return Result; }
@@ -399,6 +402,10 @@ namespace HxCore
 
             return Result;
             //return System.Security.Cryptography.MD5.HashData(bytes) is byte[] hash ? Convert.ToHexStringLower(hash) : string.Empty;
+        }
+        public static string GetMD5Checksum(string input)
+        {
+            return HxCrypt.Md5(input);
         }
         public static string GetSHA1Checksum(byte[] bytes)
         {
@@ -958,7 +965,14 @@ namespace HxCore
             return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 12, 00, 00);
         }
 
-
+        public static long GetUtcNowToUnixTimestamp()
+        {
+            return DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        }
+        public static long GetNowToUnixTimestamp()
+        {
+            return DateTimeOffset.Now.ToUnixTimeSeconds();
+        }
         #endregion
         public static string GetFileDirReplace(string input, string oldValue, string newValue)
         {
@@ -1356,7 +1370,16 @@ namespace HxCore
             }
             return Result;
         }
+        public static string GetImageToBase64Encode(Image image, Base64FormattingOptions options = Base64FormattingOptions.None)
+        {
+            if(image == null) { return null; }
+            byte[] bytes = HxImagePicture.ImageToByteArray(image);
+            if (bytes == null || bytes.Length <= 0) { return null; }
 
+            //return Convert.ToBase64String(bytes);
+            return HxString.GetByteToBase64Encode(bytes, options);
+
+        }
         public static string GetStringFromBase64Decode(string inputString, HxEncodingType encodingType = HxEncodingType.Unicode)
         {
             //참조 : http://www.csharpstudy.com/Tip/Tip-base64.aspx
@@ -1396,12 +1419,12 @@ namespace HxCore
         }
 
 
-        public static string GetAndStartString(string mWhere)
+        public static string GetAndStartString(string additionalConditions)
         {
-            string Result = mWhere;
-            if(IsRegexMatch(mWhere.Trim(), "^(and )", RegexOptions.IgnoreCase) != true)
+            string Result = additionalConditions;
+            if(IsRegexMatch(additionalConditions.Trim(), "^(and )", RegexOptions.IgnoreCase) != true)
             {
-                Result = " AND " + mWhere;
+                Result = " AND " + additionalConditions;
             }
             return Result;
         }
@@ -1427,24 +1450,23 @@ namespace HxCore
         /// <summary>
         /// Get SQL/Query String / SELECT * FROM ( inputQueryString ) WHERE 1 = 1
         /// </summary>
-        /// <param name="queryString">기본 쿼리</param>
-        /// <param name="mWhere">조건절</param>
-        /// <param name="mWhere2">조건절2</param>
-        /// <param name="mWhere3">조건절2</param>
+        /// <param name="baseQuery">기본 쿼리</param>
+        /// <param name="additionalWhere">조건절</param>
+        /// <param name="additionalOrderby">정렬 조건</param>
         /// <returns>SQL 쿼리</returns>
-        public static string SelectQueryString(string queryString, string mWhere, string mOrderBy = null) //string queryString, string mWhere, string mWhere2 = null, string mWhere3 = null)
+        public static string SelectQueryString(string baseQuery, string additionalWhere, string additionalOrderby = null) //string queryString, string mWhere, string mWhere2 = null, string mWhere3 = null)
         {
             string Result = null;
-            if (queryString.IsNullOrWhiteSpaceEx() != true)
+            if (baseQuery.IsNullOrWhiteSpaceEx() != true)
             {
-                if (queryString.Trim().ToUpper().StartsWith("WITH") != true && queryString.Trim().ToUpper().StartsWith("SELECT") != true)
+                if (baseQuery.Trim().ToUpper().StartsWith("WITH") != true && baseQuery.Trim().ToUpper().StartsWith("SELECT") != true)
                 {
-                    queryString = string.Format("SELECT * FROM ( {0} ) WHERE 1 = 1", queryString.Trim());
+                    baseQuery = string.Format("SELECT * FROM ( {0} ) WHERE 1 = 1", baseQuery.Trim());
                 }
-                Result = WhereQueryString(queryString, mWhere);
-                if (mOrderBy.IsNullOrWhiteSpaceEx() != true)
+                Result = WhereQueryString(baseQuery, additionalWhere);
+                if (additionalOrderby.IsNullOrWhiteSpaceEx() != true)
                 {
-                    Result = OrderByQueryString(Result, mOrderBy);
+                    Result = OrderByQueryString(Result, additionalOrderby);
                 }
                 /*
                 if(mWhere2.IsNullOrWhiteSpaceEx() != true)
@@ -1463,36 +1485,36 @@ namespace HxCore
         /// <summary>
         /// Get SQL/Query String / SELECT * FROM ( inputQueryString ) WHERE 1 = 1
         /// </summary>
-        /// <param name="queryString">기본 쿼리</param>
+        /// <param name="baseQuery">기본 쿼리</param>
         /// <param name="mWhereParams">조건절 Array</param>
         /// <returns>SQL 쿼리</returns>
-        public static string SelectQueryString(string queryString, params string[] mWhereArray)
+        public static string SelectQueryString(string baseQuery, params string[] additionalParams)
         {
             string Result = null;
-            if (queryString.IsNullOrWhiteSpaceEx() != true)
+            if (baseQuery.IsNullOrWhiteSpaceEx() != true)
             {
-                if (queryString.Trim().ToUpper().StartsWith("WITH ") != true && queryString.Trim().ToUpper().StartsWith("SELECT ") != true)
+                if (baseQuery.Trim().ToUpper().StartsWith("WITH ") != true && baseQuery.Trim().ToUpper().StartsWith("SELECT ") != true)
                 {
-                    queryString = string.Format("SELECT * FROM ( {0} ) WHERE 1 = 1", queryString.Trim());
+                    baseQuery = string.Format("SELECT * FROM ( {0} ) WHERE 1 = 1", baseQuery.Trim());
                 }
-                Result = WhereQueryString(queryString, mWhereArray);
+                Result = WhereQueryString(baseQuery, additionalParams);
             }
             return Result;
         }
         /// <summary>
         /// Get SQL/Query String / SELECT * FROM ( inputQueryString ) WHERE 1 = 1
         /// </summary>
-        /// <param name="queryString">기본 쿼리</param>
-        /// <param name="mOrderBy">정렬 조건</param>
-        /// <param name="mWhereArray">검색 조건절 Array</param>
+        /// <param name="baseQuery">기본 쿼리</param>
+        /// <param name="additionalOrderby">정렬 조건</param>
+        /// <param name="additionalParams">검색 조건절 Array</param>
         /// <returns></returns>
-        public static string SelectQueryStringWithOrderBy(string queryString, string mOrderBy, params string[] mWhereArray)
+        public static string SelectQueryStringWithOrderBy(string baseQuery, string additionalOrderby, params string[] additionalParams)
         {
             string Result = null;
-            Result = SelectQueryString(queryString, mWhereArray);
-            if (Result.IsNullOrWhiteSpaceEx() != true && mOrderBy.IsNullOrWhiteSpaceEx() != true)
+            Result = SelectQueryString(baseQuery, additionalParams);
+            if (Result.IsNullOrWhiteSpaceEx() != true && additionalOrderby.IsNullOrWhiteSpaceEx() != true)
             {
-                Result = OrderByQueryString(Result, mOrderBy);
+                Result = OrderByQueryString(Result, additionalOrderby);
             }
             return Result;
         }
@@ -1500,25 +1522,42 @@ namespace HxCore
         /// <summary>
         /// Get SQL/Query String 
         /// </summary>
-        /// <param name="queryString">기본 쿼리</param>
-        /// <param name="mWhere">조건절</param>
+        /// <param name="baseQuery">기본 쿼리</param>
+        /// <param name="additionalConditions">조건절</param>
         /// <returns>SQL 쿼리</returns>
-        public static string WhereQueryString(string queryString, string mWhere)
+        public static string WhereQueryString(string baseQuery, string additionalConditions = null)
         {
-            string Result = queryString;
-            if (!Result.IsNullOrWhiteSpaceEx() && !mWhere.IsNullOrWhiteSpaceEx())
+            /*
+            if (baseQuery.IsNullOrWhiteSpaceEx()) throw new ArgumentNullException(nameof(baseQuery));
+            if (additionalConditions.IsNullOrWhiteSpaceEx()) return baseQuery;
+            StringBuilder sb = new StringBuilder(baseQuery.Trim());
+            if (!additionalConditions.TrimStart().StartsWith("AND", StringComparison.OrdinalIgnoreCase) &&
+                !additionalConditions.TrimStart().StartsWith("OR", StringComparison.OrdinalIgnoreCase))
+            {
+                sb.Append(" AND ");
+            }
+            else
+            {
+                sb.Append(" ");
+            }
+            sb.Append(additionalConditions.Trim());
+            return sb.ToString();
+            */
+
+            string Result = baseQuery;
+            if (!Result.IsNullOrWhiteSpaceEx() && !additionalConditions.IsNullOrWhiteSpaceEx())
             {
                 if (Result.ToUpper().Contains("WHERE ") != true)
                 {
                     Result += " WHERE 1 = 1 ";
                 }
-                if (!mWhere.ToUpper().Trim().StartsWith("AND ") && !mWhere.ToUpper().Trim().StartsWith("OR ") && !mWhere.ToUpper().Trim().StartsWith("ORDER BY ")
-                    && !mWhere.ToUpper().Trim().StartsWith("START WITH ") && !mWhere.ToUpper().Trim().StartsWith("CONNECT BY ")
+                if (!additionalConditions.ToUpper().Trim().StartsWith("AND ") && !additionalConditions.ToUpper().Trim().StartsWith("OR ") && !additionalConditions.ToUpper().Trim().StartsWith("ORDER BY ")
+                    && !additionalConditions.ToUpper().Trim().StartsWith("START WITH ") && !additionalConditions.ToUpper().Trim().StartsWith("CONNECT BY ")
                     )
                 {
                     Result += " AND ";
                 }
-                Result += " " + mWhere;
+                Result += " " + additionalConditions;
             }
             return Result;
         }
@@ -1526,20 +1565,20 @@ namespace HxCore
         /// <summary>
         /// Get SQL/Query String 
         /// </summary>
-        /// <param name="queryString">기본 쿼리</param>
-        /// <param name="mWhereArry">조건절 Array</param>
+        /// <param name="baseQuery">기본 쿼리</param>
+        /// <param name="additionalParams">조건절 Array</param>
         /// <returns>SQL 쿼리</returns>
-        public static string WhereQueryString(string queryString, params string[] mWhereArry)
+        public static string WhereQueryString(string baseQuery, params string[] additionalParams)
         {
-            string Result = queryString;
-            if (!Result.IsNullOrWhiteSpaceEx() && !mWhereArry.IsNullOrWhiteSpaceEx())
+            string Result = baseQuery;
+            if (!Result.IsNullOrWhiteSpaceEx() && !additionalParams.IsNullOrWhiteSpaceEx())
             {
                 if (!Result.ToUpper().Contains("WHERE "))
                 {
                     Result += " WHERE 1 = 1 ";
                 }
 
-                foreach(string mWhere in mWhereArry)
+                foreach(string mWhere in additionalParams)
                 {
                     Result = WhereQueryString(Result, mWhere);
                 }
@@ -1547,12 +1586,12 @@ namespace HxCore
             return Result;
         }
 
-        public static string OrderByQueryString(string queryString, string mOrderBy)
+        public static string OrderByQueryString(string baseQuery, string additionalOrderby)
         {
-            string Result = queryString;
-            if(Result.IsNullOrWhiteSpaceEx() != true && mOrderBy.IsNullOrWhiteSpaceEx() != true)
+            string Result = baseQuery;
+            if(Result.IsNullOrWhiteSpaceEx() != true && additionalOrderby.IsNullOrWhiteSpaceEx() != true)
             {
-                string customOrderBy = mOrderBy;
+                string customOrderBy = additionalOrderby;
                 
                 string[] lines = Result.Trim().RegexReplaceEx("\r+", "\n").RegexReplaceEx("\n+", "\n").RegexReplaceEx("(\n{1,})$", string.Empty).Split('\n');
                 if(lines != null && lines.Length > 0)
@@ -1899,7 +1938,56 @@ namespace HxCore
         }
         #endregion
 
+        public struct HxUriRec
+        {
+            public const string _URL_PATTERN_ = @"^(?<protocol>https?):\/\/(?<domain>[^\/]+)(?<path>\/[^?]*)(?<query>\?.*)?$";
+            public string BaseUrl => $"{Protocol}://{Domain}";
+            public string Uri { get; private set; }
+            
+            public string Protocol { get; private set; }
+            public string Domain { get; private set; }
+            public string Path { get; private set; }
+            public string QueryString { get; private set; }
+            
+            public HxUriRec(string inputUri)
+            {
+                Uri = inputUri;
+                Protocol = string.Empty;
+                Domain = string.Empty;
+                Path = string.Empty;
+                QueryString = string.Empty;
+                if(Uri.IsNullOrWhiteSpaceEx() != true)
+                {
+                    var regex = new Regex(_URL_PATTERN_);
 
+                    Match match = regex.Match(Uri);
+
+                    if (match.Success)
+                    {
+                        Protocol = match.Groups["protocol"].Value;
+                        Domain = match.Groups["domain"].Value;
+                        Path = match.Groups["path"].Value;
+                        QueryString = match.Groups["query"].Value;
+                        /*
+                        // 기본 도메인 URL (프로토콜 + 도메인)
+                        string baseUrl = $"{Protocol}://{Domain}";
+
+                        Console.WriteLine($"✅ URL 분석 성공:");
+                        Console.WriteLine($"-------------------------------------------------");
+                        Console.WriteLine($"- 프로토콜 (Protocol)  : {Protocol}");
+                        Console.WriteLine($"- 기본 도메인 (Base URL) : {baseUrl}");
+                        Console.WriteLine($"- 뒷부분 URI (Path)    : {this.Path}");
+                        Console.WriteLine($"- 쿼리스트링 (Query)   : {QueryString}");
+                        */
+                    }
+                }
+            }
+
+            public void SetUrlParser(string uri)
+            {
+                
+            }
+        }
         
 
         public void s()

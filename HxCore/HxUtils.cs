@@ -607,9 +607,41 @@ namespace HxCore
             return HxString.GetNowDateTimeString(dateFormat);
         }
 
+        /// <summary>
+        /// 현재 시간 기준 UnixTimestamp
+        /// </summary>
+        /// <returns>Timestamp(Number/Long)</returns>
+        public static long GetNowToUnixTimestamp()
+        {
+            return GetNowToUnixTimestamp(false);
+        }
+        /// <summary>
+        /// 현재 UTC시간 기준 UnixTimestamp
+        /// </summary>
+        /// <returns>Timestamp(Number/Long)</returns>
+        public static long GetUtcNowToUnixTimestamp()
+        {
+            return GetNowToUnixTimestamp(true);
+        }
+        /// <summary>
+        /// 현재 시간 기준 UnixTimestamp
+        /// </summary>
+        /// <param name="isUseUtcNow">UTC 사용 여부?</param>
+        /// <returns>Timestamp(Number/Long)</returns>
+        public static long GetNowToUnixTimestamp(bool isUseUtcNow)
+        {
+            if(isUseUtcNow == true)
+            {
+                return HxString.GetUtcNowToUnixTimestamp();
+            }
+            else
+            {
+                return HxString.GetNowToUnixTimestamp();
+            }
+        }
 
 
-#region DateTimeUtils //DevExpress.SalesDemo.Model
+        #region DateTimeUtils //DevExpress.SalesDemo.Model
         public static HxDateTimeRange DayRange(DateTime date)
         {
             DateTime startOfDate = new DateTime(date.Year, date.Month, date.Day);
@@ -1125,41 +1157,41 @@ namespace HxCore
 
 
 
-        public static string GetQueryString(string queryString, string mWhere)
+        public static string GetQueryString(string baseQuery, string additionalConditions)
         {
-            return WhereQueryString(queryString, mWhere);
+            return WhereQueryString(baseQuery, additionalConditions);
         }
 
         /// <summary>
         /// Get SQL/Query String 
         /// </summary>
-        /// <param name="queryString">기본 쿼리</param>
-        /// <param name="mWhere">조건절</param>
+        /// <param name="baseQuery">기본 쿼리</param>
+        /// <param name="additionalConditions">조건절</param>
         /// <returns>SQL 문자열</returns>
-        public static string WhereQueryString(string queryString, string mWhere)
+        public static string WhereQueryString(string baseQuery, string additionalConditions)
         {
-            return HxString.WhereQueryString(queryString, mWhere);
+            return HxString.WhereQueryString(baseQuery, additionalConditions);
         }
 
         /// <summary>
         /// Get SQL/Query String 
         /// </summary>
-        /// <param name="queryString">기본 쿼리</param>
-        /// <param name="mWhereArry">조건절 Array</param>
+        /// <param name="baseQuery">기본 쿼리</param>
+        /// <param name="additionalParams">조건절 Array</param>
         /// <returns>SQL 문자열</returns>
-        public static string WhereQueryString(string queryString, params string[] mWhereArry)
+        public static string WhereQueryString(string baseQuery, params string[] additionalParams)
         {
-            return HxString.WhereQueryString(queryString, mWhereArry);
+            return HxString.WhereQueryString(baseQuery, additionalParams);
         }
         /// <summary>
         /// Get SQL/Query String 
         /// </summary>
-        /// <param name="queryString">기본 쿼리</param>
-        /// <param name="mOrderBy">정렬 조건</param>
+        /// <param name="baseQuery">기본 쿼리</param>
+        /// <param name="additionalOrderby">정렬 조건</param>
         /// <returns>SQL 문자열</returns>
-        public static string OrderByQueryString(string queryString, string mOrderBy)
+        public static string OrderByQueryString(string baseQuery, string additionalOrderby)
         {
-            return HxString.OrderByQueryString(queryString, mOrderBy);
+            return HxString.OrderByQueryString(baseQuery, additionalOrderby);
         }
 
         /// <summary>
@@ -1171,9 +1203,9 @@ namespace HxCore
         /// <param name="mWhere3">조건절2</param>
         /// <returns>SQL 문자열</returns>
         
-        public static string SelectQueryString(string queryString, string mWhere = null, string mOrderBy = null) //string queryString, string mWhere, string mWhere2 = null, string mWhere3 = null)
+        public static string SelectQueryString(string baseQuery, string additionalWhere = null, string additionalOrderby = null)
         {
-            return HxString.SelectQueryString(queryString, mWhere, mOrderBy);
+            return HxString.SelectQueryString(baseQuery, additionalWhere, additionalOrderby);
         }
         /// <summary>
         /// Get SQL/Query String / SELECT * FROM ( inputQueryString ) WHERE 1 = 1
@@ -1181,9 +1213,9 @@ namespace HxCore
         /// <param name="queryString">기본 쿼리</param>
         /// <param name="mWhereParams">조건절 Array</param>
         /// <returns>SQL 문자열</returns>
-        public static string SelectQueryString(string queryString, params string[] mWhereArray)
+        public static string SelectQueryString(string baseQuery, params string[] additionalParams)
         {
-            return HxString.SelectQueryString(queryString, mWhereArray);
+            return HxString.SelectQueryString(baseQuery, additionalParams);
         }
         
         /// <summary>
@@ -1194,9 +1226,9 @@ namespace HxCore
         /// <param name="mWhere2">조건절2</param>
         /// <param name="mWhere3">조건절2</param>
         /// <returns>SQL 문자열</returns>
-        public static string SelectQueryStringWithOrderBy(string queryString, string mOrderBy, params string[] mWhereArray) //string queryString, string mWhere, string mWhere2 = null, string mWhere3 = null)
+        public static string SelectQueryStringWithOrderBy(string baseQuery, string additionalOrderby, params string[] additionalParams)
         {
-            return HxString.SelectQueryStringWithOrderBy(queryString, mOrderBy, mWhereArray);
+            return HxString.SelectQueryStringWithOrderBy(baseQuery, additionalOrderby, additionalParams);
         }
 
         public static int RegexTagMatchCount(string input, bool IgnoreCase = true, string pattern = @"(?:{{)(\$)([\w.]+)+(?:\:([\w-~,]+))?( ?\/)?(?:}})")

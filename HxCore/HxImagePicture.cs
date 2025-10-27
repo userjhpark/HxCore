@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 
@@ -88,7 +89,7 @@ namespace HxCore
         }
         public static string GetMD5Checksum(byte[] bytes)
         {
-            return HxString.GetSHA512Checksum(bytes);
+            return HxString.GetMD5Checksum(bytes);
         }
         public static string GetSHA1Checksum(byte[] bytes)
         {
@@ -118,23 +119,28 @@ namespace HxCore
             byte[] bytes = ImageToByteArray(image);
             return GetSHA512Checksum(bytes);
         }
+        public static string GetBase64Encode(Image image)
+        {
+            byte[] bytes = ImageToByteArray(image);
+            return HxString.GetByteToBase64Encode(bytes);
+        }
         
 
 
 
         public static string GetImageFormatString(System.Drawing.Imaging.ImageFormat format)
         {
-            if (format == System.Drawing.Imaging.ImageFormat.Jpeg)
+            if (format.Equals(System.Drawing.Imaging.ImageFormat.Jpeg))
                 return "JPEG";
-            if (format == System.Drawing.Imaging.ImageFormat.Png)
+            if (format.Equals(System.Drawing.Imaging.ImageFormat.Png))
                 return "PNG";
-            if (format == System.Drawing.Imaging.ImageFormat.Bmp)
+            if (format.Equals(System.Drawing.Imaging.ImageFormat.Bmp))
                 return "BMP";
-            if (format == System.Drawing.Imaging.ImageFormat.Gif)
+            if (format.Equals(System.Drawing.Imaging.ImageFormat.Gif))
                 return "GIF";
-            if (format == System.Drawing.Imaging.ImageFormat.Tiff)
+            if (format.Equals(System.Drawing.Imaging.ImageFormat.Tiff))
                 return "TIFF";
-            if (format == System.Drawing.Imaging.ImageFormat.Icon)
+            if (format.Equals(System.Drawing.Imaging.ImageFormat.Icon))
                 return "ICON";
             return "Unknown";
         }

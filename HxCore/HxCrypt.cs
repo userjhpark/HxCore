@@ -378,7 +378,10 @@ namespace HxCore
             // Convert the input string to a byte array and compute the hash.
             //byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
             //byte[] data = md5Hash.ComputeHash(Encoder.Default.GetBytes(input));
-            byte[] data = md5Hash.ComputeHash(GetString2Bytes(input, encodingType));
+            byte[] bytes = GetString2Bytes(input, encodingType);
+            if (bytes == null || bytes.Length == 0) { return null; }
+
+            byte[] data = md5Hash.ComputeHash(bytes);
             return GetBytes2String(data, "x2");
 
             //byte[] dataEA = md5Hash.ComputeHash(Encoding.ASCII.GetBytes(input));

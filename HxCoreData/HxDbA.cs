@@ -1899,7 +1899,7 @@ namespace HxCore.Data
             bool Result = false;
             if (parse < 0 && this.QueryID >= 0)
                 parse = this.QueryID;
-            if (ReaderList.ContainsKey(parse))
+            if (ReaderList != null && ReaderList.Count > 0 && ReaderList.ContainsKey(parse))
             {
                 TDbDataReader reader = this.ReaderList[parse];
                 if (reader != null && reader.IsClosed != true)

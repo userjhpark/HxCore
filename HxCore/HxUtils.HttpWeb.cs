@@ -13,6 +13,7 @@ namespace HxCore
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web;
+    using static HxCore.HxUTF8StringWriter;
 
     partial class HxUtils
     {
@@ -514,6 +515,35 @@ namespace HxCore
             }
             return Result;
         }
+        public static RestResponse GetRestClientResponse(string callURI, Method restMethod, Dictionary<string, object> headerValue, string bodyRawJson)
+        {
+            RestResponse Result = null;
+            if (callURI.IsNullOrWhiteSpaceEx() == true || bodyRawJson.IsNullOrWhiteSpaceEx() == true) return Result;
+
+            HxUriRec webUriInfo = new HxUriRec(callURI);
+            if (webUriInfo.BaseUrl.IsNullOrWhiteSpaceEx() == true) { return Result; }
+            var options = new RestClientOptions(webUriInfo.BaseUrl);
+            var client = new RestClient(options);
+            var request = new RestRequest($"{webUriInfo.Path}{webUriInfo.QueryString}", Method.Post);
+            //request.AddHeader("X-OCR-SECRET", "ZHVReUZnU3VxVEhsZmRIYW1XYUhxdWxrbHRNdXZ3alI=");
+            //request.AddHeader("Content-Type", "application/json");
+
+            if (headerValue != null && headerValue.Count > 0)
+            {
+
+                foreach (KeyValuePair<string, object> o in headerValue)
+                {
+                    string strItemName = o.Key;
+                    string strItemValue = o.Value.ToStringEx();
+                    request.AddHeader(strItemName, strItemValue);
+                }
+            }
+            
+            request.AddStringBody(bodyRawJson, DataFormat.Json);
+            Result = client.Execute(request);
+            Debug.WriteLine(Result.Content);
+            return Result;
+        }
         public static HxResultValue GetRestClientContentResultValue(string callURI, Method restMethod = Method.Get, Dictionary<string, object> headerValue = null, Dictionary<string, object> postValue = null)
         {
             HxResultValue Result = new HxResultValue();
@@ -524,6 +554,35 @@ namespace HxCore
                 {
                     string strValue = response.Content;
                     Result = HxUtils.JsonDeserializeObject<HxResultValue>(strValue);
+                    if (Result != null)
+                    {
+                        Result.Value2 = response;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Result.ResultType = HxResultType.Exception;
+                Result.DetailMessage += "/Exception : " + ex.Message;
+                SetDebugWrite(ex, false, Result.DetailMessage);
+            }
+            finally
+            {
+
+            }
+            return Result;
+        }
+        public static HxResultValue GetRestClientContentResultValue(string callURI, Method restMethod, Dictionary<string, object> headerValue, string postRawJson)
+        {
+            HxResultValue Result = new HxResultValue();
+            try
+            {
+                RestResponse response = GetRestClientResponse(callURI, restMethod, headerValue, postRawJson);
+                if (response != null && response.IsSuccessful == true)
+                {
+                    string strValue = response.Content;
+                    Result.Value = strValue;
+                    //Result = HxUtils.JsonDeserializeObject<HxResultValue>(strValue);
                     if (Result != null)
                     {
                         Result.Value2 = response;
