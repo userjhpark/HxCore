@@ -834,7 +834,7 @@ namespace HxCore
         }
         public static DateTime? ToNullableDateTimeEx(this string value, string dateFormat = "yyyy-MM-dd HH:mm:ss")
         {
-            return value.ToNullableDateTimeEx(dateFormat);
+            return value.ToNullableDateEx(dateFormat);
         }
 
         /// <summary>

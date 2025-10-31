@@ -63,9 +63,9 @@ namespace HxCore
         public string MOD_USER { get; set; }
         #endregion
 
-        public DBNull DbNullValue => DBNull.Value;
+        protected DBNull DbNullValue => DBNull.Value;
 
-        public object DbNullToObject => DbNullValue.ToDBNullObjectEx();
+        protected object DbNullToObject => DbNullValue.ToDBNullObjectEx();
 
         public HxDbModelSetValue()
         {

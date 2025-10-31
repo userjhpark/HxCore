@@ -228,7 +228,7 @@ namespace HxCore
             this.Value = value;
         }
 
-        protected void SetObjectValue(object pValue)
+        public void SetObjectValue(object pValue)
         {
             _value = pValue;
             

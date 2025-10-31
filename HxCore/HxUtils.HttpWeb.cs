@@ -388,7 +388,7 @@ namespace HxCore
                 //    strCallApiUrl = APIConnInfo.API_HOST;
                 //}
 
-                if (strCallApiUrl.EndsWith("/") != true && callURI.StartsWith("/") != true)
+                if (strCallApiUrl.Contains("?") != true && strCallApiUrl.EndsWith("/") != true && callURI.StartsWith("/") != true)
                 {
                     strCallApiUrl += "/";
                 }

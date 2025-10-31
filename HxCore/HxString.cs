@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -972,6 +973,136 @@ namespace HxCore
         public static long GetNowToUnixTimestamp()
         {
             return DateTimeOffset.Now.ToUnixTimeSeconds();
+        }
+
+        /// <summary>
+        /// 다양한 형식의 날짜 문자열을 "yyyy-MM-dd" 형식으로 변환 
+        /// (Create by Gemini / 2025-10-28)
+        /// </summary>
+        /// <param name="inputDate">입력 날짜 문자열</param>
+        /// <returns>변환된 "yyyy-MM-dd" 문자열 또는 오류 메시지</returns>
+        public static string GetConvertDateString(string inputDate, string outDateFormat = "yyyy-MM-dd")
+        {
+            if (string.IsNullOrWhiteSpace(inputDate))
+            {   //Invalid Input
+                return null;
+            }
+
+            // 1. 숫자가 아닌 모든 문자를 공백으로 치환
+            // "2025년 07월 28일" -> "2025 07 28 "
+            // "25.07.28" -> "25 07 28"
+            // "2025 / 7 / 28" -> "2025 7 28"
+            string cleaned = Regex.Replace(inputDate, @"[^\d]", " ");
+
+            // 2. 연속된 공백을 단일 공백으로 압축하고 앞뒤 공백 제거
+            // "2025 07 28 " -> "2025 07 28"
+            cleaned = Regex.Replace(cleaned, @"\s+", " ").Trim();
+
+            string[] parts = cleaned.Split(' ');
+
+            string yearStr = "", monthStr = "", dayStr = "";
+            string format;
+
+            if (parts.Length == 3) // 예: "2025 07 28" 또는 "25 7 28"
+            {
+                yearStr = parts[0];
+                monthStr = parts[1];
+                dayStr = parts[2];
+
+                // 3. 두 자리 연도 보정 (21세기 기준)
+                if (yearStr.Length == 2)
+                {
+                    yearStr = "20" + yearStr;
+                }
+
+                // 유효성 검사를 위한 포맷 생성
+                format = "yyyy-M-d";
+            }
+            else if (parts.Length == 1 && !string.IsNullOrEmpty(parts[0])) // 예: "20250728" 또는 "250728"
+            {
+                string digitsOnly = parts[0];
+                if (digitsOnly.Length == 8) // "yyyyMMdd"
+                {
+                    format = "yyyyMMdd";
+                }
+                else if (digitsOnly.Length == 6) // "yyMMdd"
+                {
+                    format = "yyMMdd";
+                }
+                else
+                {
+                    return string.Empty; // "Invalid Format";
+                }
+
+                // TryParseExact에 사용하기 위해 원본 숫자 문자열을 사용
+                yearStr = digitsOnly;
+                monthStr = ""; // 사용되지 않음
+                dayStr = ""; // 사용되지 않음
+            }
+            else
+            {
+                return string.Empty; // "Invalid Format";
+            }
+
+            // 4. DateTime으로 파싱 (유효성 검사)
+            DateTime resultDate;
+            bool success;
+
+            if (parts.Length == 3)
+            {
+                // "yyyy-M-d" 포맷은 7, 07, 28, 8 등 1~2자리 월/일을 모두 처리
+                success = DateTime.TryParseExact(
+                    $"{yearStr}-{monthStr}-{dayStr}",
+                    format,
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out resultDate);
+            }
+            else // parts.Length == 1
+            {
+                success = DateTime.TryParseExact(
+                    yearStr, // "20250728" 또는 "250728"
+                    format,
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out resultDate);
+            }
+
+            // 5. 최종 포맷으로 반환
+            if (success)
+            {
+                return resultDate.ToString(outDateFormat); //return resultDate.ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                // (e.g., 2025-13-40 같은 잘못된 날짜)
+                return null; //"Invalid Date";
+            }
+        }
+
+        /// <summary>
+        /// 날짜 범위 검증 및 DateTime 생성
+        /// Create by ChatGPT / 2025-10-28)
+        /// </summary>
+        /// <param name="y">년</param>
+        /// <param name="m">월</param>
+        /// <param name="d">일</param>
+        /// <param name="outDateTime">변환된 날짜</param>
+        /// <returns></returns>
+        public static bool TryCreateDate(int y, int m, int d, out DateTime outDateTime)
+        {
+            outDateTime = default;
+            if (m < 1 || m > 12) return false;
+            if (d < 1 || d > DateTime.DaysInMonth(y, m)) return false;
+            try
+            {
+                outDateTime = new DateTime(y, m, d, 0, 0, 0, DateTimeKind.Unspecified);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
         #endregion
         public static string GetFileDirReplace(string input, string oldValue, string newValue)
