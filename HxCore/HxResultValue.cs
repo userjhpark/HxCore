@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -228,7 +229,7 @@ namespace HxCore
             this.Value = value;
         }
 
-        public void SetObjectValue(object pValue)
+        public void SetObjectValue(object pValue, string pType = null)
         {
             _value = pValue;
             
@@ -239,82 +240,7 @@ namespace HxCore
             {
                 if (_value != null)
                 {
-                    if (_value is DataSet)
-                    {
-                        strType = "DataSet";
-                    }
-                    else if (_value is DataTable)
-                    {
-                        strType = "DataTable";
-                    }
-                    else if (_value is DataView)
-                    {
-                        strType = "DataView";
-                    }
-                    else if (_value is Array || _value is ArrayList)
-                    {
-                        strType = "Array";
-                    }
-                    else if (_value is IDictionary)
-                    {
-                        strType = "Dictionary";
-                    }
-                    else if (_value is IList)
-                    {
-                        strType = "List";
-                    }
-                    else if (_value is List<Dictionary<string, object>>)
-                    {
-                        strType = "List";
-                    }
-                    else if (_value is List<System.Collections.DictionaryBase>)
-                    {
-                        strType = "List";
-                    }
-                    else if (_value is IList<Object>)
-                    {
-                        strType = "List";
-                    }
-                    else if (_value is System.Collections.DictionaryBase)
-                    {
-                        strType = "Dictionary";
-                    }
-                    else if (_value is ICollection)
-                    {
-                        strType = "array";
-                    }
-                    else if (_value is IEnumerable<object>)
-                    {
-                        strType = "array";
-                    }
-                    else if (_value is int || _value is uint || _value is Int16 || _value is Int64)
-                    {
-                        strType = "Int";
-                    }
-                    else if (_value is decimal || _value is float || _value is double)
-                    {
-                        strType = "Number";
-                    }
-                    else if (_value is bool)
-                    {
-                        strType = "Bool";
-                    }
-                    else if (_value is string)
-                    {
-                        strType = "String";
-                    }
-                    else if (_value is DateTime)
-                    {
-                        strType = "DateTime";
-                    }
-                    else if (strType.EndsWith("Rec") == true)
-                    {
-                        strType = "Record";
-                    }
-                    else if (strType.EndsWith("Rec[]") == true)
-                    {
-                        strType = "RecordSet";
-                    }
+                    strType = GetObjectType(strType);
                 }
 
                 ValueType = strType ?? null;
@@ -338,10 +264,120 @@ namespace HxCore
             
         }
 
+        private string GetObjectType(string strType = null)
+        {
+            string Result = strType;
+            if (_value is DataSet)
+            {
+                Result = "DataSet";
+            }
+            else if (_value is DataTable)
+            {
+                Result = "DataTable";
+            }
+            else if (_value is DataView)
+            {
+                Result = "DataView";
+            }
+            else if (_value is Array || _value is ArrayList)
+            {
+                Result = "Array";
+            }
+            else if (_value is IDictionary)
+            {
+                Result = "Dictionary";
+            }
+            else if (_value is IList)
+            {
+                Result = "List";
+            }
+            else if (_value is List<Dictionary<string, object>>)
+            {
+                Result = "List";
+            }
+            else if (_value is List<System.Collections.DictionaryBase>)
+            {
+                Result = "List";
+            }
+            else if (_value is IList<Object>)
+            {
+                Result = "List";
+            }
+            else if (_value is System.Collections.DictionaryBase)
+            {
+                Result = "Dictionary";
+            }
+            else if (_value is ICollection)
+            {
+                Result = "array";
+            }
+            else if (_value is IEnumerable<object>)
+            {
+                Result = "array";
+            }
+            else if (_value is int || _value is uint || _value is Int16 || _value is Int64)
+            {
+                Result = "Int";
+            }
+            else if (_value is decimal || _value is float || _value is double)
+            {
+                Result = "Number";
+            }
+            else if (_value is bool)
+            {
+                Result = "Bool";
+            }
+            else if (_value is string)
+            {
+                Result = "String";
+            }
+            else if (_value is DateTime)
+            {
+                Result = "DateTime";
+            }
+            else if (strType.IsNullOrWhiteSpaceEx() != true) 
+            {
+                if (strType.EndsWith("Rec") == true)
+                {
+                    Result = "Record";
+                }
+                else if (strType.EndsWith("Rec[]") == true)
+                {
+                    Result = "RecordSet";
+                }
+                else
+                {
+                    Result = strType;
+                }
+            }
+
+            return Result;
+        }
+
         public void SetValue(DataTable data)
         {
 
             this.Value = data?.Copy();
+        }
+        public void SetJsonValue(DataTable data)
+        {
+            Value = data?.ToJsonStringEx();
+            ValueType = "DataTable";
+        }
+        public void SetJsonValue(IEnumerable data)
+        {
+            Value = data?.ToJsonStringEx();
+            ValueType = "Array";
+        }
+        public void SetJsonValue(IDictionary data)
+        {
+            Value = data?.ToJsonStringEx();
+            ValueType = "Dictionary";
+        }
+        public void SetJsonValue(object data)
+        {
+            Value = data?.ToJsonStringEx();
+            ValueType = "Class";
         }
 
         public void SetValue(string value, HxResultType? resultType = null) 
@@ -351,6 +387,14 @@ namespace HxCore
             {
                 ResultType = resultType.Value;
             }
+        }
+        public void SetErrorValue(string value)
+        {
+            SetValue(value, HxResultType.Error);
+        }
+        public void SetFailValue(string value)
+        {
+            SetValue(value, HxResultType.Fail);
         }
 
         public void SetException(Exception ex)

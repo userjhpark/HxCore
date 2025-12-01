@@ -137,7 +137,7 @@ namespace HxCore
             }
             return Result;
         }
-        public static string GetUserGlobalAddress()
+        public static string GetUserGlobalAddress(string inputHost = null)
         {
             string Result = null;
             string ip;
@@ -154,6 +154,12 @@ namespace HxCore
                     //XML : http://ip-api.com/xml
                     //CSV : http://ip-api.com/csv
                     //PHP : http://ip-api.com/php
+
+                    if (inputHost.IsNullOrWhiteSpaceEx() != true)
+                    {
+                        ip = webClient.DownloadString(inputHost);
+                        Result = Regex.Replace(ip.Trim(), @"\t|\n|\r", String.Empty);
+                    }
 
                     if (Result.IsNullOrWhiteSpaceEx())
                     {

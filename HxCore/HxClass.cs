@@ -4,7 +4,14 @@ using System.Text;
 
 namespace HxCore
 {
+    using Newtonsoft.Json;
+    using System.ComponentModel;
     using System.Linq;
+    using System.Reflection;
+    using System.Text.Encodings.Web;
+    using System.Text.Json;
+    using System.Text.Unicode;
+
     public class HxResponseResult
     {
         public string Result => ResultType.ToString(); // 결과 상태 코드 문자열 표현
@@ -86,5 +93,78 @@ namespace HxCore
         public string ValueTypeShortName => Value?.GetType().Name ?? "null"; // 결과 값의 짧은 타입 이름 (선택적)
         */
 #endif
+    }
+
+    public class HxDefaultPropertyInfo
+    {
+        public string Name { get; set; }
+        public object Value { get; set; }
+        public string Description { get; set; }
+        public string JsonProperty { get; set; }
+
+        public HxDefaultPropertyInfo()
+        {
+            Name = string.Empty;
+            Value = null;
+            Description = string.Empty;
+            JsonProperty = string.Empty;
+        }
+        public HxDefaultPropertyInfo(string name, object value, string description, string jsonProperty)
+        {
+            Name = name;
+            Value = value;
+            Description = description;
+            JsonProperty = jsonProperty;
+        }
+
+        public HxDefaultPropertyInfo(object sender)
+            : this()
+        {
+
+        }
+
+        public static IEnumerable<HxDefaultPropertyInfo> ToLoad(object sender)
+        {
+            PropertyInfo [] properties = sender.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            // 2. LINQ를 사용하여 각 속성을 원하는 {Name, Value, Description} 형태로 변환합니다.
+            var Result = properties.Select(prop =>
+            {
+                // 2-1. [Description] 특성을 찾습니다.
+                DescriptionAttribute descriptionAttr = prop.GetCustomAttribute<DescriptionAttribute>();
+                string descriptionValue = descriptionAttr?.Description ?? string.Empty;
+
+                JsonPropertyAttribute jsonPropertyAttr = prop.GetCustomAttribute<JsonPropertyAttribute>();
+                string jsonPropertyValue = jsonPropertyAttr?.PropertyName ?? string.Empty;
+
+
+                // 2-2. 현재 인스턴스에서 해당 속성의 실제 값을 가져옵니다.
+                object value = prop.GetValue(sender);
+
+                // 2-3. JSON으로 만들 익명 객체(Anonymous Object)를 반환합니다.
+                return new HxDefaultPropertyInfo()
+                {
+                    Name = prop.Name,
+                    Value = value,
+                    Description = descriptionValue,
+                    JsonProperty = jsonPropertyValue
+                };
+            });
+
+            return Result?.ToList();
+        }
+
+        public static string ToJson(object sender)
+        {
+            IEnumerable<HxDefaultPropertyInfo> defaultPropertyList = ToLoad(sender);
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                // 한글을 \uXXXX 형태가 아닌 "관측일" 그대로 출력
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                WriteIndented = true // JSON 출력을 보기 좋게 들여쓰기
+            };
+
+            return HxConvert.JsonSerializeObject(defaultPropertyList);
+        }
     }
 }

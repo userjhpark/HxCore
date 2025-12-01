@@ -11,6 +11,10 @@ namespace HxCore
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Net.NetworkInformation;
     using System.Threading.Tasks;
     using System.Web;
     using static HxCore.HxUTF8StringWriter;
@@ -362,23 +366,111 @@ namespace HxCore
             return Result;
         }
 
-        
-
-        #region Rest
-        public static RestResponse GetRestClientResponse(HxOpenApiJsonRec openApi, Method restMethod = Method.Get, Dictionary<string, object> headerValue = null, Dictionary<string, object> postValue = null)
+        public static (HttpStatusCode statusCode, string contentBody) WebClient(string callURI, HttpMethod httpMethod = null, Dictionary<string, object> headerValue = null, Dictionary<string, object> postValue = null, string apiKeyValueStr = null, string apiPassValueStr = null)
         {
-            string callURI = openApi.API_HOST;
-            //if (callURI.IsNullOrWhiteSpaceEx() == true) return null;
-            if (callURI.IsNullOrWhiteSpaceEx() != true || (callURI.StartsWith("http://") != true && callURI.StartsWith("https://") != true)) return null;
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage(httpMethod ?? HttpMethod.Get, callURI);
 
-            return GetRestClientResponse(callURI, restMethod, headerValue, postValue);
+
+            if(request != null && headerValue != null && headerValue.Any() == true)
+            {
+                StringContent contentValue = null;
+                foreach (var header in headerValue)
+                {
+                    if (header.Key.IsNullOrWhiteSpaceEx() == true) { continue; }
+
+                    if(header.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (contentValue == null)
+                        {
+                            MediaTypeHeaderValue mime = new MediaTypeHeaderValue("application/json");
+                            if (mime != null)
+                            {
+                                contentValue = new StringContent(string.Empty);
+                                contentValue.Headers.ContentType = mime;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        request.Headers.Add(header.Key, header.Value.ToString());
+                    }
+                }
+                if (contentValue != null)
+                {
+                    request.Content = contentValue;
+                }
+            }
+
+            HttpResponseMessage response = client.SendAsync(request)?.Result;
+            HttpStatusCode statusCode = HttpStatusCode.BadRequest;
+            HttpContent content = null;
+            string contentBody = null;
+            if (response != null && response.StatusCode != HttpStatusCode.NotFound)
+            {
+                //response.EnsureSuccessStatusCode();
+                statusCode = response.StatusCode;
+                content = response.Content;
+                contentBody = response.Content.ReadAsStringAsync().Result;
+            }
+            return (statusCode, contentBody);
         }
-        public static RestResponse GetRestClientResponse(string callURI, Method restMethod = Method.Get, Dictionary<string, object> headerValue = null, Dictionary<string, object> postValue = null, string apiKeyValueStr = null, string apiPassValueStr = null)
-        {
-            RestResponse Result = null;
-            if (callURI.IsNullOrWhiteSpaceEx() == true) return Result;
 
-            const string _Api_Key_Name_  = HxOpenApiDbRec._CDF_KEY_NAME_;
+        public static async Task<(HttpStatusCode statusCode, string contentBody)> WebClientAsync(string callURI, HttpMethod httpMethod = null, Dictionary<string, object> headerValue = null, Dictionary<string, object> postValue = null, string apiKeyValueStr = null, string apiPassValueStr = null)
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage(httpMethod ?? HttpMethod.Get, callURI);
+
+
+            if (request != null && headerValue != null && headerValue.Any() == true)
+            {
+                StringContent contentType = null;
+                foreach (var header in headerValue)
+                {
+                    if (header.Key.IsNullOrWhiteSpaceEx() == true) { continue; }
+
+                    if (header.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (contentType == null)
+                        {
+                            MediaTypeHeaderValue mime = new MediaTypeHeaderValue("application/json");
+                            if (mime != null)
+                            {
+                                contentType = new StringContent(string.Empty);
+                                contentType.Headers.ContentType = mime;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        request.Headers.Add(header.Key, header.Value.ToString());
+                    }
+                }
+                if (contentType != null)
+                {
+                    //request.Content = contentType;
+                }
+            }
+
+            HttpResponseMessage response = await client.SendAsync(request);
+            HttpStatusCode statusCode = HttpStatusCode.BadRequest;
+            HttpContent content = null;
+            string contentBody = null;
+            if (response != null && response.StatusCode != HttpStatusCode.NotFound)
+            {
+                //response.EnsureSuccessStatusCode();
+                statusCode = response.StatusCode;
+                content = response.Content;
+                contentBody = await response.Content.ReadAsStringAsync();
+            }
+            return (statusCode, contentBody);
+        }
+        #region Rest
+        private static (RestClient client, RestRequest request) GetResutClient(string callURI, Method restMethod = Method.Get, Dictionary<string, object> headerValue = null, Dictionary<string, object> postValue = null, string apiKeyValueStr = null, string apiPassValueStr = null)
+        {
+            RestClient client = null;
+            RestRequest request = null;
+            const string _Api_Key_Name_ = HxOpenApiDbRec._CDF_KEY_NAME_;
             const string _Api_Pass_Name_ = HxOpenApiDbRec._CDF_PASS_NAME_;
             try
             {
@@ -388,14 +480,19 @@ namespace HxCore
                 //    strCallApiUrl = APIConnInfo.API_HOST;
                 //}
 
-                if (strCallApiUrl.Contains("?") != true && strCallApiUrl.EndsWith("/") != true && callURI.StartsWith("/") != true)
+                if (strCallApiUrl.Contains("?") != true && strCallApiUrl.Contains("&") != true && strCallApiUrl.EndsWith("/") != true && callURI.StartsWith("/") != true)
                 {
                     strCallApiUrl += "/";
                 }
 
-                var client = new RestClient(strCallApiUrl);
-                var request = new RestRequest
+                HxUriRec uri = new HxUriRec(strCallApiUrl);
+                var options = new RestClientOptions(uri.BaseUrl);
+                //var client = new RestClient(strCallApiUrl);
+                client = new RestClient(options);
+
+                request = new RestRequest
                 {
+                    Resource = uri.Path + (uri.QueryString.IsNullOrWhiteSpaceEx() != true ? ((uri.QueryString.StartsWith("?") ? string.Empty : "?") + uri.QueryString) : string.Empty),
                     Method = restMethod
                 };
 
@@ -405,7 +502,7 @@ namespace HxCore
                 bool bInputApiKey = false;
                 bool bInputApiPass = false;
 
-                
+
                 string strApiKeyValue = apiKeyValueStr;
                 string strApiPassValue = apiPassValueStr;
 
@@ -491,7 +588,7 @@ namespace HxCore
                 }
 
 
-                
+
 
                 if (bInputApiKey == false && apiKeyValueStr.IsNullOrWhiteSpaceEx() != true)
                 {
@@ -501,8 +598,7 @@ namespace HxCore
                 {
                     request.AddHeader(_Api_Pass_Name_, apiPassValueStr);
                 }
-
-                Result = client.Execute(request);
+                //Result = await client.ExecuteAsync(request);
             }
             catch (Exception ex)
             {
@@ -513,8 +609,40 @@ namespace HxCore
             {
 
             }
-            return Result;
+            return (client, request);
         }
+
+        public static RestResponse GetRestClientResponse(HxOpenApiJsonRec openApi, Method restMethod = Method.Get, Dictionary<string, object> headerValue = null, Dictionary<string, object> postValue = null)
+        {
+            string callURI = openApi.API_HOST;
+            //if (callURI.IsNullOrWhiteSpaceEx() == true) return null;
+            if (callURI.IsNullOrWhiteSpaceEx() != true || (callURI.StartsWith("http://") != true && callURI.StartsWith("https://") != true)) return null;
+
+            return GetRestClientResponse(callURI, restMethod, headerValue, postValue);
+        }
+        public static RestResponse GetRestClientResponse(string callURI, Method restMethod = Method.Get, Dictionary<string, object> headerValue = null, Dictionary<string, object> postValue = null, string apiKeyValueStr = null, string apiPassValueStr = null)
+        {
+            RestResponse response = null;
+            (RestClient client, RestRequest request) restObj = GetResutClient(callURI, restMethod, headerValue, postValue, apiKeyValueStr, apiPassValueStr);
+            if (restObj.client != null && restObj.request != null)
+            {
+                response = restObj.client.Execute(restObj.request);
+            }
+            return response;
+        }
+        
+
+        public static async Task<RestResponse> GetRestClientResponseAsync(string callURI, Method restMethod = Method.Get, Dictionary<string, object> headerValue = null, Dictionary<string, object> postValue = null, string apiKeyValueStr = null, string apiPassValueStr = null)
+        {
+            RestResponse response = null;
+            (RestClient client, RestRequest request) restObj = GetResutClient(callURI, restMethod, headerValue, postValue, apiKeyValueStr, apiPassValueStr);
+            if (restObj.client != null && restObj.request != null)
+            {
+                response = await restObj.client.ExecuteAsync(restObj.request);
+            }
+            return response;
+        }
+
         public static RestResponse GetRestClientResponse(string callURI, Method restMethod, Dictionary<string, object> headerValue, string bodyRawJson)
         {
             RestResponse Result = null;
@@ -550,6 +678,45 @@ namespace HxCore
             try
             {
                 RestResponse response = GetRestClientResponse(callURI, restMethod, headerValue, postValue);
+                if (response != null && response.IsSuccessful == true)
+                {
+                    string strValue = response.Content;
+                    Result.SetValue(strValue);
+                    try
+                    {
+                        Result = HxUtils.JsonDeserializeObject<HxResultValue>(strValue);
+                    }
+                    catch (Exception exResult)
+                    {
+                        Result.SetValue(strValue);
+                        Debug.Write(exResult);
+                        //throw;
+                    }
+                    
+                    if (Result != null)
+                    {
+                        Result.Value2 = response;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Result.ResultType = HxResultType.Exception;
+                Result.DetailMessage += "/Exception : " + ex.Message;
+                SetDebugWrite(ex, false, Result.DetailMessage);
+            }
+            finally
+            {
+
+            }
+            return Result;
+        }
+        public static async Task<HxResultValue> GetRestClientContentResultValueAsync(string callURI, Method restMethod = Method.Get, Dictionary<string, object> headerValue = null, Dictionary<string, object> postValue = null)
+        {
+            HxResultValue Result = new HxResultValue();
+            try
+            {
+                RestResponse response = await GetRestClientResponseAsync(callURI, restMethod, headerValue, postValue);
                 if (response != null && response.IsSuccessful == true)
                 {
                     string strValue = response.Content;

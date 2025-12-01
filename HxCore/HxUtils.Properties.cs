@@ -537,7 +537,7 @@ Result = true;
                 var v = sender;
                 if (v != null)
                 {
-                    PropertyInfo[] props = flags == BindingFlags.Default ? v.GetType().GetProperties() : v.GetType().GetProperties(flags);
+                    PropertyInfo[] props = (flags == BindingFlags.Default) ? v.GetType().GetProperties() : v.GetType().GetProperties(flags);
                     foreach (PropertyInfo prop in props)
                     {
                         foreach (object attr in prop.GetCustomAttributes(true))
