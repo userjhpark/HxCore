@@ -92,8 +92,8 @@ namespace HxCore.Data
         /// <param name="password">DB 패스워드</param>
         /// <param name="database">Database Host/Name</param>
         /// <param name="character">DB 문자셋</param>
-        public HxDbOci(string userID, string password, string database, string character = null)
-            : base(HxDbProviderType.OCI, userID, password, database, character)
+        public HxDbOci(string userID, string password, string database, string character = null, bool pooling = false)
+            : base(HxDbProviderType.OCI, userID, password, database, character, pooling)
         {
             this.InitVarTypes();
         }

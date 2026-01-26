@@ -1722,6 +1722,45 @@ namespace HxCore.Win
             }
         }
 
+        /// <summary>
+        /// 특정 ClickOnce 애플리케이션이 설치되어 있는지 확인합니다.
+        /// </summary>
+        /// <param name="programName">제어판에 표시되는 애플리케이션(프로그램)의 정확한 이름</param>
+        /// <returns>설치되어 있으면 true, 아니면 false</returns>
+        public static bool IsProgramInstalledClickOnce(string programName)
+        {
+            // ClickOnce는 사용자별로 설치되므로 CurrentUser(HKCU)를 조회합니다.
+            string registryKey = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
+
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(registryKey))
+            {
+                if (key == null) return false;
+
+                // Uninstall 하위의 모든 키(설치된 프로그램들)를 순회합니다.
+                foreach (string subkeyName in key.GetSubKeyNames())
+                {
+                    using (RegistryKey subkey = key.OpenSubKey(subkeyName))
+                    {
+                        if (subkey != null)
+                        {
+                            // "DisplayName" 값을 가져옵니다.
+                            object displayName = subkey.GetValue("DisplayName");
+
+                            // 찾고자 하는 앱 이름과 일치하는지 확인합니다. (대소문자 무시)
+                            if (displayName != null &&
+                                displayName.ToString().Equals(programName, StringComparison.OrdinalIgnoreCase))
+                            {
+                                return true; // 애플리케이션 발견
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false; // 애플리케이션을 찾지 못함
+        }
+
+
         public static IntPtr GetFindWindowHandle(string lpClassName, string lpWindowName, out Point ptFindPoint)
         {
             ptFindPoint = Point.Empty;
