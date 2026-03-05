@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/bin-aa/Realse
+/HxCoreWinPDFXE/old
+/HxCoreWinPDFXE/Properties/licenses.licx
+/HxCoreWinPDFXE/Properties/licenses.licx.bak
