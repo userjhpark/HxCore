@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>HxCore.Standard.v1.4.22</AssemblyName>
+    <RootNamespace>HxCore</RootNamespace>
+    <Company>TypeSW</Company>
+    <Product>HxCore</Product>
+    <Copyright>Copyright © 2018 TypeSW.com</Copyright>
+    <Authors>TypeSW</Authors>
+    <PackageId>HxCore.Standard</PackageId>
+    <Description>.NET Standard 2.0 - Library</Description>
+    <AssemblyVersion>1.4.22.0</AssemblyVersion>
+    <FileVersion>1.4.22.0</FileVersion>
+    <PackageProjectUrl>https://github.com/typesw/HxCore</PackageProjectUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/typesw/HxCore</RepositoryUrl>
+    <Version>1.4.22</Version>
+    <UserSecretsId>22e9bc6d-73be-4844-ad6b-9f757a8eb093</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;IDE0018</NoWarn>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\bin\Realse\</OutputPath>
+    <NoWarn>1701;1702;IDE0018</NoWarn>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
+    <PackageReference Include="MimeMapping" Version="1.0.1.37" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="RestSharp" Version="106.10.1" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageReference Include="System.Management" Version="6.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="&quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\signtool.exe&quot; sign /f &quot;D:\Workspace_2023v3\etc\인증서\CodeSign\chain\htenc.co.kr.pfx&quot; /p cimage1004@ /fd sha256 /v $(TargetPath)" />
+  </Target>
+
+</Project>

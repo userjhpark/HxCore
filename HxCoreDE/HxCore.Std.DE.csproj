@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>HxCore.Standard.DE</RootNamespace>
+    <AssemblyName>HxCore.Standard.DE.v1.0</AssemblyName>
+    <Authors>TypeSW</Authors>
+    <Company>TypeSW</Company>
+    <Product>HxCore</Product>
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Document.Processor" Version="22.2.14">
+      <GeneratePathProperty></GeneratePathProperty>
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="PDFsharpNetStandard2" Version="1.51.4845" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HxCore\HxCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="NETStandard.Library">
+      <GeneratePathProperty></GeneratePathProperty>
+    </PackageReference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="&quot;E:\DevSpace\etc\Windows_Kits_bin\x86\signtool.exe&quot; sign /f &quot;E:\DevSpace\etc\인증서\CodeSign\chain\htenc.co.kr.pfx&quot; /p cimage1004@ /fd sha256 /v $(TargetPath)" />
+  </Target>
+
+</Project>

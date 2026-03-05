@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Version>1.4.25</Version>
+    <Authors>TypeSW</Authors>
+    <Product>HxCore</Product>
+    <Company>TypeSW</Company>
+    <Copyright>Copyright © 2018 TypeSW.com</Copyright>
+    <PackageProjectUrl>https://github.com/userjhpark/HxCore</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/userjhpark/HxCore</RepositoryUrl>
+    <AssemblyName>HxCore.Web.N9.v1.4</AssemblyName>
+    <RootNamespace>HxCore.Web</RootNamespace>
+    <Description>.NET Core 3.1 - Library</Description>
+    <AssemblyVersion>1.4.25.0</AssemblyVersion>
+    <FileVersion>1.4.25.0</FileVersion>
+    <PackageId>HxCore.Web</PackageId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\bin\Realse\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.28.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="9.0.11" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
+    <PackageReference Include="System.IO" Version="4.3.0" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="4.7.1" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HxCoreData\HxCore.Data.csproj" />
+    <ProjectReference Include="..\HxCore\HxCore.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="&quot;E:\DevSpace\etc\Windows_Kits_bin\x86\signtool.exe&quot; sign /f &quot;E:\DevSpace\etc\인증서\CodeSign\chain\htenc.co.kr.pfx&quot; /p cimage1004@ /fd sha256 /v $(TargetPath)" />
+  </Target>
+
+</Project>
