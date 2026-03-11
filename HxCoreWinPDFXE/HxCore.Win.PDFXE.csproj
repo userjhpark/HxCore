@@ -60,6 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form3.Designer.cs">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Readme.cs" />
     <Compile Include="HxPDFXE.Utils.Custom.cs" />
     <Compile Include="Form1.cs">
@@ -85,6 +91,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form3.resx">
+      <DependentUpon>Form3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
@@ -113,7 +122,6 @@
   <ItemGroup>
     <None Include="PDFXEditCore.x64.tlb" />
     <None Include="PDFXEditCore.x86.tlb" />
-    <None Include="PDFXEditCore.x86.X.manifest" />
     <None Include="Resources.dat" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +135,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AxInterop.PDFXEdit.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <COMReference Include="AxPDFXEdit">
       <Guid>{0AAFF38C-CB91-4424-A8B9-F8B504ACBE0C}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -134,6 +145,7 @@
       <Lcid>0</Lcid>
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
+      <Private>False</Private>
     </COMReference>
     <COMReference Include="PDFXEdit">
       <Guid>{0AAFF38C-CB91-4424-A8B9-F8B504ACBE0C}</Guid>
@@ -144,6 +156,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <NativeReference Include="PDFXEditCore.x86.X, Version=1.0.0.0, Type=win32">
+      <Name>PDFXEditCore.x86.X.manifest</Name>
+      <HintPath>.\PDFXEditCore.x86.X.manifest</HintPath>
+    </NativeReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

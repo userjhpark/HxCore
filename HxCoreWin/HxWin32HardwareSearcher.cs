@@ -1,5 +1,5 @@
-﻿using HidSharp.Utility;
-using LibreHardwareMonitor.Hardware.Motherboard;
+﻿//using HidSharp.Utility;
+//using LibreHardwareMonitor.Hardware.Motherboard;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

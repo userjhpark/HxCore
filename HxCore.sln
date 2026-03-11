@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HxCore.Host", "HxCoreHost\H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HxCore.Win.PDFXE", "HxCoreWinPDFXE\HxCore.Win.PDFXE.csproj", "{B10555FB-179E-4141-A50E-133277293E79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HxCore.Std.DE", "HxCoreDE\HxCore.Std.DE.csproj", "{9891439C-7869-5896-656D-8E6E3F405CC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{B10555FB-179E-4141-A50E-133277293E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B10555FB-179E-4141-A50E-133277293E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B10555FB-179E-4141-A50E-133277293E79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9891439C-7869-5896-656D-8E6E3F405CC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9891439C-7869-5896-656D-8E6E3F405CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9891439C-7869-5896-656D-8E6E3F405CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9891439C-7869-5896-656D-8E6E3F405CC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
