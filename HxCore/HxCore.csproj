@@ -48,7 +48,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="&quot;E:\DevSpace\etc\Windows_Kits_bin\x86\signtool.exe&quot; sign /f &quot;E:\DevSpace\etc\인증서\CodeSign\chain\htenc.co.kr.pfx&quot; /p cimage1004@ /fd sha256 /v $(TargetPath)" />
+    <Exec Command="&quot;E:\DevSpace\etc\인증서\CodeSign\codesign.bat&quot; $(TargetPath)" />
   </Target>
 
 </Project>

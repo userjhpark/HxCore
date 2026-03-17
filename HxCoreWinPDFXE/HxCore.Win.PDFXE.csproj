@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <NoWarn>IDE0031;IDE0029;IDE1006</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -31,7 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <NoWarn>IDE0031;IDE0029;IDE1006</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -48,8 +48,8 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Drawing.Common, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\System.Drawing.Common.8.0.0\lib\net462\System.Drawing.Common.dll</HintPath>
+    <Reference Include="System.Drawing.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\HiProjects\HiBizTools\packages\System.Drawing.Common.9.0.10\lib\net462\System.Drawing.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
@@ -60,20 +60,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form3.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form3.Designer.cs">
-      <DependentUpon>Form3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Readme.cs" />
-    <Compile Include="HxPDFXE.Utils.Custom.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Readme.cs" />
+    <Compile Include="HxPDFXE.Utils.Custom.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="HxOptionSet.cs" />
     <Compile Include="HxPDFXE.IDS_Events.cs" />
@@ -91,9 +85,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form3.resx">
-      <DependentUpon>Form3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
@@ -135,7 +126,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AxInterop.PDFXEdit.dll" />
+    <None Include="AxInterop.PDFXEdit.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AxPDFXEdit">
@@ -160,11 +154,11 @@
   <ItemGroup>
     <NativeReference Include="PDFXEditCore.x86.X, Version=1.0.0.0, Type=win32">
       <Name>PDFXEditCore.x86.X.manifest</Name>
-      <HintPath>.\PDFXEditCore.x86.X.manifest</HintPath>
+      <HintPath>..\..\..\..\Library\PDFXEditCore\PDFXEditCore.x86.X.manifest</HintPath>
     </NativeReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"E:\DevSpace\etc\Windows_Kits_bin\x86\signtool.exe" sign /f "E:\DevSpace\etc\인증서\CodeSign\chain\htenc.co.kr.pfx" /p cimage1004@ /fd sha256 /v $(TargetPath)</PostBuildEvent>
+    <PostBuildEvent>"E:\DevSpace\etc\인증서\CodeSign\codesign.bat" $(TargetPath)</PostBuildEvent>
   </PropertyGroup>
 </Project>
