@@ -159,6 +159,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"E:\DevSpace\etc\인증서\CodeSign\codesign.bat" $(TargetPath)</PostBuildEvent>
+    <PostBuildEvent>"E:\DevSpace\etc\인증서\CodeSign\codesign.bat" $(TargetPath) $(ConfigurationName)</PostBuildEvent>
   </PropertyGroup>
 </Project>

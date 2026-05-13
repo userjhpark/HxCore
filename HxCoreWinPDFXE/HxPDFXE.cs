@@ -16,7 +16,6 @@ namespace HxCore.Win.PDFXE
 {
     public partial class HxPDFXE
     {
-        
 
         #region Define / Const Vars
         public const string _PXD_General_AppTitle_ = "General.AppTitle";
@@ -27,7 +26,6 @@ namespace HxCore.Win.PDFXE
         #endregion
 
         private AxPXV_Control pdfCtl = null;
-
 
         public AxPXV_Control PDFCtl
         {

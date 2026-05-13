@@ -1676,9 +1676,9 @@ namespace HxCore
             */
 
             string Result = baseQuery;
-            if (!Result.IsNullOrWhiteSpaceEx() && !additionalConditions.IsNullOrWhiteSpaceEx())
+            if (!additionalConditions.IsNullOrWhiteSpaceEx())
             {
-                if (Result.ToUpper().Contains("WHERE ") != true)
+                if (!Result.IsNullOrWhiteSpaceEx() && Result.ToUpper().Contains("WHERE ") != true)
                 {
                     Result += " WHERE 1 = 1 ";
                 }

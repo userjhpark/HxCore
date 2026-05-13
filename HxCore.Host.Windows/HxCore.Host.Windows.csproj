@@ -8,4 +8,8 @@
     <UseAspNetCore>true</UseAspNetCore>
   </PropertyGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="&quot;E:\DevSpace\etc\인증서\CodeSign\codesign.bat&quot; $(TargetPath) $(ConfigurationName)" />
+  </Target>
+
 </Project>
