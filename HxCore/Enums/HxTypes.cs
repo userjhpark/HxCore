@@ -695,6 +695,7 @@ namespace HxCore
         H, //Hold
         T, //임시, Temp
         I, //진행 중, ~Ing
+        W, //대기 중, Wait
         P, //일시 정지(검토 중, closed), Pause
 
         C, //쓰기 (Create, Write) / 취소(Cancel)

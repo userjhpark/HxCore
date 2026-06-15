@@ -1678,14 +1678,14 @@ namespace HxCore
             string Result = baseQuery;
             if (!additionalConditions.IsNullOrWhiteSpaceEx())
             {
-                if (!Result.IsNullOrWhiteSpaceEx() && Result.ToUpper().Contains("WHERE ") != true)
-                {
-                    Result += " WHERE 1 = 1 ";
-                }
                 if (!additionalConditions.ToUpper().Trim().StartsWith("AND ") && !additionalConditions.ToUpper().Trim().StartsWith("OR ") && !additionalConditions.ToUpper().Trim().StartsWith("ORDER BY ")
                     && !additionalConditions.ToUpper().Trim().StartsWith("START WITH ") && !additionalConditions.ToUpper().Trim().StartsWith("CONNECT BY ")
                     )
                 {
+                    if (Result.IsNullOrWhiteSpaceEx() || Result.ToUpper().Contains("WHERE ") != true)
+                    {
+                        Result += " WHERE 1 = 1 ";
+                    }
                     Result += " AND ";
                 }
                 Result += " " + additionalConditions;
