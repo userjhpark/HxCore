@@ -2308,7 +2308,7 @@ namespace HxCore
                 string strFileName = fileName;
                 if (isSafeName == true)
                 {
-                    strFileName = GetSafeFileName(strFileName);
+                    strFileName = Path.Combine(GetFileDirPath(strFileName), GetSafeFileName(strFileName));
                 }
                 strFileName = GetLongFileName(strFileName);
 

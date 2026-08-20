@@ -108,8 +108,8 @@
     <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\HiProjects\HiAIMSTools\HiAIMS\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\..\HiProjects\HiManagementTools\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    <Reference Include="System.Text.Encodings.Web, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\HiProjects\HiBizTools\packages\System.Text.Encodings.Web.10.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
@@ -177,6 +177,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"E:\DevSpace\etc\Windows_Kits_bin\x86\signtool.exe" sign /f "E:\DevSpace\etc\인증서\CodeSign\chain\htenc.co.kr.pfx" /p cimage1004@ /fd sha256 /v $(TargetPath)</PostBuildEvent>
+    <PostBuildEvent>"E:\DevSpace\etc\인증서\CodeSign\codesign.bat" "$(TargetPath)" "$(ConfigurationName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

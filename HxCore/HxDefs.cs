@@ -7,7 +7,7 @@ namespace HxCore
 {
     public class HxDefs
     {
-        public const string _TEMP_DIR_NAME_ = "TempAppDir";
+        internal const string _TEMP_DIR_NAME_ = "TempAppDir";
         public const int _FILE_MAX_PATH_ = 255; //파일명은 전체 경로를 포함하여 최대 259 글자이며, 루트 폴더에 가장 긴 255 글자의 파일을 만들 수 있다.
         public const int _DIR_MAX_PATH_ = 244; //폴더명은 전체 경로를 포함하여 최대 247 글자이며, 루트 폴더에 가장 긴 244 글자의 폴더를 만들 수 있다.
 

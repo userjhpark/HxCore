@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B10555FB-179E-4141-A50E-133277293E79}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HxCore.Win.PDFXE</RootNamespace>
+    <AssemblyName>HxCore.Win.PDFXE.v1.4</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <NoWarn>IDE0031;IDE0029;IDE1006</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Realse\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <NoWarn>IDE0031;IDE0029;IDE1006</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Docs.v22.2, Version=22.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v22.2.Core, Version=22.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Drawing.v22.2, Version=22.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v22.2.Core, Version=22.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\HiProjects\HiBizTools\packages\System.Drawing.Common.9.0.10\lib\net462\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Readme.cs" />
+    <Compile Include="HxPDFXE.Utils.Custom.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="HxOptionSet.cs" />
+    <Compile Include="HxPDFXE.IDS_Events.cs" />
+    <Compile Include="HxPDFXE.Plugins.cs" />
+    <Compile Include="HxPDFXE.Plugins.OCR.cs" />
+    <Compile Include="HxPDFXE.Static.cs" />
+    <Compile Include="HxPDFXE.Utils.cs" />
+    <Compile Include="HxPDFXE.cs" />
+    <Compile Include="HxPDFXE.OptionSettings.cs" />
+    <Compile Include="HxUIXEventMonitor.cs" />
+    <Compile Include="PdfEditorCommandHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Struects.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Javascripts\annotsContentsChange.js" />
+    <None Include="Javascripts\annotsCopyToMultiplePages.js" />
+    <None Include="Javascripts\Base64.js" />
+    <None Include="Javascripts\printAllOpenedDocs.js" />
+    <None Include="Javascripts\pdf.js" />
+    <None Include="Javascripts\pdf.worker.js" />
+    <None Include="Javascripts\webtoolkit.Utf8.js" />
+    <None Include="Javascripts\webtoolkit.strreplace.js" />
+    <None Include="Javascripts\webtoolkit.trim.js.js" />
+    <None Include="Javascripts\webtoolkit.Url.js" />
+    <None Include="Images\Icon-ChangeAnnotsContents.png" />
+    <None Include="Images\Icon-CopyAnnotsToPages.png" />
+    <None Include="Images\Icon-Print_All.png" />
+    <None Include="packages.config" />
+    <None Include="PDFXEditCore.x64.dll" />
+    <None Include="PDFXEditCore.x86.dll" />
+    <None Include="Stamps\HTE.TR.AutoDate.pdf" />
+    <None Include="Stamps\HTE.VP.Result.AutoSignDate.Background.Transparent.pdf" />
+    <None Include="Stamps\HTE.VP.Result.Simple.Background.Transparent.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PDFXEditCore.x64.tlb" />
+    <None Include="PDFXEditCore.x86.tlb" />
+    <None Include="Resources.dat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HxCoreWin\HxCore.Win.csproj">
+      <Project>{1db637c7-f484-4009-89f4-097b956efa17}</Project>
+      <Name>HxCore.Win</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HxCore\HxCore.csproj">
+      <Project>{1bbf3159-0b4c-4c60-a33b-0f6d03a627bd}</Project>
+      <Name>HxCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AxInterop.PDFXEdit.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <NativeReference Include="PDFXEditCore.x86.X, Version=1.0.0.0, Type=win32">
+      <Name>PDFXEditCore.x86.X.manifest</Name>
+      <HintPath>..\..\..\..\Library\PDFXEditCore\PDFXEditCore.x86.X.manifest</HintPath>
+    </NativeReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxPDFXEdit">
+      <Guid>{0AAFF38C-CB91-4424-A8B9-F8B504ACBE0C}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="PDFXEdit">
+      <Guid>{0AAFF38C-CB91-4424-A8B9-F8B504ACBE0C}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>"E:\DevSpace\etc\인증서\CodeSign\codesign.bat" "$(TargetPath)" "$(ConfigurationName)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

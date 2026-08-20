@@ -155,7 +155,6 @@ namespace HxCore.Data
         /// Set Database Options
         /// </summary>
         /// <param name="option">Database Options</param>
-        /// TODO : 미구현! 아무 기능도 하지 않습니다.
         [Obsolete("미구현! 아무 기능도 하지 않습니다.", true)]
         public override void SetOptions(HxDbOptionRec option)
         {
