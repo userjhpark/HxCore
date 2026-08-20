@@ -60,12 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Readme.cs" />
     <Compile Include="HxPDFXE.Utils.Custom.cs" />
     <Compile Include="Enums.cs" />
@@ -83,9 +77,6 @@
     <Compile Include="Struects.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +123,12 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <NativeReference Include="PDFXEditCore.x86.X, Version=1.0.0.0, Type=win32">
+      <Name>PDFXEditCore.x86.X.manifest</Name>
+      <HintPath>..\..\..\..\Library\PDFXEditCore\PDFXEditCore.x86.X.manifest</HintPath>
+    </NativeReference>
+  </ItemGroup>
+  <ItemGroup>
     <COMReference Include="AxPDFXEdit">
       <Guid>{0AAFF38C-CB91-4424-A8B9-F8B504ACBE0C}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -139,7 +136,6 @@
       <Lcid>0</Lcid>
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
-      <Private>False</Private>
     </COMReference>
     <COMReference Include="PDFXEdit">
       <Guid>{0AAFF38C-CB91-4424-A8B9-F8B504ACBE0C}</Guid>
@@ -151,14 +147,8 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <NativeReference Include="PDFXEditCore.x86.X, Version=1.0.0.0, Type=win32">
-      <Name>PDFXEditCore.x86.X.manifest</Name>
-      <HintPath>..\..\..\..\Library\PDFXEditCore\PDFXEditCore.x86.X.manifest</HintPath>
-    </NativeReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"E:\DevSpace\etc\인증서\CodeSign\codesign.bat" $(TargetPath) $(ConfigurationName)</PostBuildEvent>
+    <PostBuildEvent>"E:\DevSpace\etc\인증서\CodeSign\codesign.bat" "$(TargetPath)" "$(ConfigurationName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
