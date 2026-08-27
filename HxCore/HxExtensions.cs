@@ -1874,5 +1874,35 @@ namespace HxCore
         {
             return (object)DBNull.Value;
         }
+
+        #region 날짜 관련 처리
+        /// <summary>
+        /// 지정한 시작일로부터 주말(토/일)을 제외한 N영업일 후의 날짜를 계산합니다.
+        /// </summary>
+        /// <param name="inputDate">기준 날짜</param>
+        /// <param name="intervalBusinessDays">더할 영업일 수 (양수)</param>
+        /// <returns>계산된 영업일 날짜</returns>
+        public static DateTime AddBusinessDayEx(this DateTime inputDate, int intervalBusinessDays)
+        {
+            if (intervalBusinessDays < 0)
+                throw new ArgumentOutOfRangeException(nameof(intervalBusinessDays), "영업일 수는 0 이상이어야 합니다.");
+
+            DateTime Result = inputDate;
+            int addedDays = 0;
+
+            while (addedDays < intervalBusinessDays)
+            {
+                Result = Result.AddDays(1);
+
+                // 토요일과 일요일은 카운트에서 제외
+                if (Result.DayOfWeek != DayOfWeek.Saturday && Result.DayOfWeek != DayOfWeek.Sunday)
+                {
+                    addedDays++;
+                }
+            }
+
+            return Result;
+        }
+        #endregion
     }
 }
